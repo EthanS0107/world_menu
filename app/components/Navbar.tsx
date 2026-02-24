@@ -31,7 +31,12 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="flex items-center gap-8 font-medium text-gray-600">
-          <NavLink href="/" currentPath={pathname}>
+          <NavLink
+            href={
+              session?.user?.isActive || session?.user?.isAdmin ? "/menu" : "/"
+            }
+            currentPath={pathname}
+          >
             Accueil
           </NavLink>
           <NavLink href="/about" currentPath={pathname}>

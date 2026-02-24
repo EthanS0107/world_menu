@@ -326,8 +326,8 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4">
           <Link
-            href="/"
-            className="flex-1 text-center px-6 py-3 bg-white border border-gray-200 text-gray-700 font-semibold rounded-2xl shadow-sm hover:shadow-md transition-all text-sm"
+            href={user.isActive || user.isAdmin ? "/menu" : "/"}
+            className="flex-1 text-center flex items-center justify-center px-6 py-3 bg-white border border-gray-200 text-gray-700 font-semibold rounded-2xl shadow-sm hover:shadow-md transition-all text-sm"
           >
             Retour à l'accueil
           </Link>
