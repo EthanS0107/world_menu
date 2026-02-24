@@ -1,139 +1,113 @@
-'use client';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Link from "next/link";
+import SubscribeButton from "./components/SubscribeButton";
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import PageTransition from './components/PageTransition';
+export default async function LandingPage() {
+  const session: any = await getServerSession(authOptions);
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
+  const isActive = !!session?.user?.isActive;
+  const isSubscribed = isActive;
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
-};
+  const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID;
 
-export default function Home() {
   return (
-    <PageTransition className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <main className="max-w-4xl w-full text-center">
-        <motion.h1 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-4xl md:text-6xl font-bold text-gray-900 mb-8"
-        >
-          Découvrez nos Menus du Monde
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-xl text-gray-600 mb-12"
-        >
-          Sélectionnez une destination pour découvrir ses saveurs typiques.
-        </motion.p>
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center">
+      {/* Hero Section */}
+      <div className="relative isolate px-6 pt-14 lg:px-8 max-w-2xl text-center w-full">
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl mb-6">
+          Word Menu
+        </h1>
+        <p className="mt-6 text-lg leading-8 text-gray-600 mb-10">
+          Découvrez les saveurs du monde entier.
+          <br />
+          Abonnez-vous pour accéder à nos menus exclusifs et nos propositions
+          culinaires.
+        </p>
 
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {/* Card Seychelles */}
-          <motion.div variants={item}>
-            <Link 
-              href="/menu/seychelles"
-              className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="h-48 bg-blue-600 relative overflow-hidden">
-                 {/* Flag animated on hover maybe? */}
-                 <div className="absolute inset-0 bg-blue-600 transition-transform duration-700 group-hover:scale-110"></div>
-                 <div className="absolute inset-0 bg-yellow-400 w-full h-full origin-bottom-left -skew-x-12 opacity-80 translate-x-1/4 transition-transform duration-700 group-hover:translate-x-[28%]"></div>
-                 <div className="absolute inset-0 bg-red-600 w-full h-full origin-bottom-left -skew-x-12 opacity-80 translate-x-1/2 transition-transform duration-700 group-hover:translate-x-[55%]"></div>
-                 <div className="absolute bottom-0 w-full h-4 bg-green-600"></div>
-                 
-                 <div className="absolute inset-0 flex items-center justify-center">
-                   <motion.span 
-                      whileHover={{ scale: 1.2, rotate: 10 }}
-                      className="text-white text-3xl font-bold drop-shadow-md"
-                   >
-                     🇸🇨
-                   </motion.span>
-                 </div>
-              </div>
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
-                  Seychelles
-                </h2>
-                <p className="text-gray-600">
-                  Plongez dans l'exotisme avec nos plats aux saveurs de coco, de poisson frais et d'épices tropicales.
-                </p>
-              </div>
-            </Link>
-          </motion.div>
+        <div className="flex flex-col items-center justify-center gap-6 w-full">
+          {!session ? (
+            <div className="w-full max-w-sm bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 flex flex-col gap-4">
+              <h3 className="text-lg font-semibold text-gray-800">
+                Commencez l'aventure
+              </h3>
+              <p className="text-sm text-gray-500 mb-4">
+                Authentification simple par email.
+              </p>
 
-          {/* Card Bénin */}
-          <motion.div variants={item}>
-            <Link 
-              href="/menu/benin"
-              className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="h-48 bg-[#008751] relative overflow-hidden">
-                 {/* Flag animation */}
-                 <div className="absolute left-0 top-0 h-full w-[40%] bg-[#008751] transition-all duration-500 group-hover:w-[45%]"></div>
-                 <div className="absolute right-0 top-0 h-1/2 w-[60%] bg-[#FCD116] transition-all duration-500 group-hover:w-[55%]"></div>
-                 <div className="absolute right-0 bottom-0 h-1/2 w-[60%] bg-[#E8112D] transition-all duration-500 group-hover:w-[55%]"></div>
-                 
-                 <div className="absolute inset-0 flex items-center justify-center">
-                   <motion.span 
-                      whileHover={{ scale: 1.2, rotate: -10 }}
-                      className="text-white text-3xl font-bold drop-shadow-md"
-                   >
-                     🇧🇯
-                   </motion.span>
-                 </div>
-              </div>
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-[#008751] transition-colors">
-                  Bénin
-                </h2>
-                <p className="text-gray-600">
-                  Savourez l'authenticité de l'Afrique de l'Ouest avec le Wassa-Wassa et nos beignets traditionnels.
-                </p>
-              </div>
-            </Link>
-          </motion.div>
+              <Link
+                href="/auth/signin"
+                className="w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 text-center transition-all"
+              >
+                Se connecter avec Email
+              </Link>
 
-          {/* Placeholder for future country */}
-          <motion.div variants={item} className="group block bg-gray-100 rounded-2xl overflow-hidden shadow border-2 border-dashed border-gray-300 relative opacity-60">
-             <div className="h-48 flex items-center justify-center bg-gray-200">
-                <motion.span 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                  className="text-4xl text-gray-400"
-                >
-                  +
-                </motion.span>
-             </div>
-             <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-500 mb-2">
-                Bientôt...
-              </h2>
-              <p className="text-gray-400">
-                De nouvelles destinations culinaires arrivent bientôt.
+              <p className="text-xs text-gray-400 text-center mt-2">
+                Si vous n'avez pas de compte, il sera créé automatiquement.
               </p>
             </div>
-          </motion.div>
+          ) : (
+            <div className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200 w-full max-w-md">
+              <p className="text-lg font-medium text-gray-900 mb-2">
+                Bienvenue !
+              </p>
+              <p className="text-sm text-gray-500 mb-6 break-all font-mono bg-gray-200 p-1 rounded inline-block">
+                {session.user.email}
+              </p>
 
-        </motion.div>
-      </main>
-    </PageTransition>
+              {!isSubscribed ? (
+                <div className="mt-4 border-t pt-4">
+                  <p className="text-sm text-gray-500 mb-4">
+                    Abonnement requis :{" "}
+                    <span className="font-bold text-gray-900">6€/mois</span>
+                  </p>
+                  {STRIPE_PRICE_ID ? (
+                    <SubscribeButton priceId={STRIPE_PRICE_ID} />
+                  ) : (
+                    <p className="text-red-500 text-xs">
+                      Erreur de configuration (ID Prix Stripe manquant)
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="mt-4 flex flex-col items-center border-t pt-4">
+                  <p className="text-green-600 font-semibold mb-4 flex items-center gap-2">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                    Vous êtes abonné.
+                  </p>
+                  <Link
+                    href="/menu"
+                    className="rounded-md bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-500 transition-colors w-full text-center"
+                  >
+                    Accéder au Menu
+                  </Link>
+                </div>
+              )}
+
+              <div className="mt-6 border-t pt-4 text-center">
+                <Link
+                  href="/api/auth/signout"
+                  className="text-xs text-gray-400 hover:text-gray-600 underline"
+                >
+                  Se déconnecter
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
