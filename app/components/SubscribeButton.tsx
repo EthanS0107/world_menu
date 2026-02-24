@@ -38,7 +38,7 @@ export default function SubscribeButton({ priceId }: { priceId: string }) {
       disabled={loading}
       className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition disabled:opacity-50"
     >
-      {loading ? "Redirection..." : "S'abonner pour 6€/mois"}
+      {loading ? "Redirection..." : "S'abonner pour 9.99€/mois"}
     </button>
   );
 }

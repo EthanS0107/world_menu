@@ -59,7 +59,7 @@ export default async function LandingPage() {
                 <div className="mt-4 border-t pt-4">
                   <p className="text-sm text-gray-500 mb-4">
                     Abonnement requis :{" "}
-                    <span className="font-bold text-gray-900">6€/mois</span>
+                    <span className="font-bold text-gray-900">9.99€/mois</span>
                   </p>
                   {STRIPE_PRICE_ID ? (
                     <SubscribeButton priceId={STRIPE_PRICE_ID} />
