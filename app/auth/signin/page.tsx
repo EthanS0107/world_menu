@@ -22,18 +22,41 @@ export default function SignInPage() {
     setError("");
 
     try {
+      // Si inscription, on appelle d'abord l'API register
+      if (isRegister) {
+        const registerRes = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            password,
+            firstName,
+            lastName,
+          }),
+        });
+
+        const registerData = await registerRes.json();
+
+        if (!registerRes.ok) {
+          setError(
+            registerData.error || "Erreur lors de la création du compte.",
+          );
+          setLoading(false);
+          return;
+        }
+      }
+
+      // Connexion (après inscription réussie, ou directement en mode connexion)
       const result = await signIn("credentials", {
         email,
         password,
-        firstName: isRegister ? firstName : "",
-        lastName: isRegister ? lastName : "",
         redirect: false,
       });
 
       if (result?.error) {
         setError(
           isRegister
-            ? "Erreur lors de la création du compte. Vérifiez vos informations."
+            ? "Compte créé mais erreur de connexion automatique. Essayez de vous connecter."
             : "Email ou mot de passe incorrect.",
         );
       } else {

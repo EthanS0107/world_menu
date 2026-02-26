@@ -13,8 +13,10 @@ const transporter = nodemailer.createTransport({
 export async function sendPasswordResetEmail(email: string, token: string) {
   let appUrl = "";
 
-  // Sur Vercel, on utilise VERCEL_PROJECT_PRODUCTION_URL ou VERCEL_URL
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+  // Priorité : APP_URL explicite > Vercel production > Vercel preview > NEXTAUTH_URL > localhost
+  if (process.env.APP_URL) {
+    appUrl = process.env.APP_URL;
+  } else if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     appUrl = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
   } else if (process.env.VERCEL_URL) {
     appUrl = `https://${process.env.VERCEL_URL}`;

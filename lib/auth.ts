@@ -1,9 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
-import { randomUUID } from "crypto";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,8 +14,6 @@ export const authOptions: NextAuthOptions = {
           placeholder: "votre@email.com",
         },
         password: { label: "Mot de passe", type: "password" },
-        firstName: { label: "Prénom", type: "text" },
-        lastName: { label: "Nom", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
@@ -26,48 +22,15 @@ export const authOptions: NextAuthOptions = {
         const password = credentials.password;
 
         try {
-          let user = await prisma.user.findUnique({ where: { email } });
+          const user = await prisma.user.findUnique({ where: { email } });
 
-          if (!user) {
-            // Création d'un nouvel utilisateur avec hash du mot de passe
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const firstName = credentials.firstName?.trim() || null;
-            const lastName = credentials.lastName?.trim() || null;
-            const name =
-              [firstName, lastName].filter(Boolean).join(" ") || null;
+          if (!user || !user.password) {
+            return null;
+          }
 
-            user = await prisma.user.create({
-              data: {
-                email,
-                password: hashedPassword,
-                firstName,
-                lastName,
-                name,
-                id: randomUUID(),
-              },
-            });
-
-            // Création du client Stripe
-            try {
-              const customer = await stripe.customers.create({
-                email: user.email!,
-                metadata: { userId: user.id },
-              });
-              await prisma.user.update({
-                where: { id: user.id },
-                data: { stripeCustomerId: customer.id },
-              });
-            } catch (error) {
-              console.error("Erreur création stripe customer", error);
-            }
-          } else {
-            // Vérification du mot de passe
-            if (
-              !user.password ||
-              !(await bcrypt.compare(password, user.password))
-            ) {
-              return null;
-            }
+          const isValid = await bcrypt.compare(password, user.password);
+          if (!isValid) {
+            return null;
           }
 
           return {
