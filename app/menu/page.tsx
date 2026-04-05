@@ -73,8 +73,8 @@ export default function MenuPage() {
                   Seychelles
                 </h2>
                 <p className="text-gray-600">
-                  Plongez dans l'exotisme avec nos plats aux saveurs de coco, de
-                  poisson frais et d'épices tropicales.
+                  Plongez dans l&apos;exotisme avec nos plats aux saveurs de
+                  coco, de poisson frais et d&apos;epices tropicales.
                 </p>
               </div>
             </Link>
@@ -106,35 +106,46 @@ export default function MenuPage() {
                   Bénin
                 </h2>
                 <p className="text-gray-600">
-                  Savourez l'authenticité de l'Afrique de l'Ouest avec le
-                  Wassa-Wassa et nos beignets traditionnels.
+                  Savourez l&apos;authenticite de l&apos;Afrique de l&apos;Ouest
+                  avec le Wassa-Wassa et nos beignets traditionnels.
                 </p>
               </div>
             </Link>
           </motion.div>
 
-          {/* Placeholder for future country */}
-          <motion.div
-            variants={item}
-            className="group block bg-gray-100 rounded-2xl overflow-hidden shadow border-2 border-dashed border-gray-300 relative opacity-60"
-          >
-            <div className="h-48 flex items-center justify-center bg-gray-200">
-              <motion.span
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="text-4xl text-gray-400"
-              >
-                +
-              </motion.span>
-            </div>
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-500 mb-2">
-                Bientôt...
-              </h2>
-              <p className="text-gray-400">
-                De nouvelles destinations culinaires arrivent bientôt.
-              </p>
-            </div>
+          {/* Card Tunisie */}
+          <motion.div variants={item}>
+            <Link
+              href="/menu/tunisie"
+              className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+            >
+              <div className="h-48 relative overflow-hidden bg-[#f0041e]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#ff3f4d_0%,#f0041e_52%,#aa0014_100%)]"></div>
+                <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"></div>
+                <div className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-[40%] -translate-y-1/2 rounded-full border-[12px] border-[#f0041e]"></div>
+                <div className="absolute left-1/2 top-1/2 -translate-y-1/2 translate-x-[14px] text-3xl text-[#f0041e]">
+                  ★
+                </div>
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.span
+                    whileHover={{ scale: 1.2, rotate: 6 }}
+                    className="text-white text-3xl font-bold drop-shadow-md"
+                  >
+                    🇹🇳
+                  </motion.span>
+                </div>
+              </div>
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-[#c90018] transition-colors">
+                  Tunisie
+                </h2>
+                <p className="text-gray-600">
+                  Découvrez les saveurs tunisiennes entre fraîcheur
+                  méditerranéenne, épices vibrantes et gourmandise orientale.
+                </p>
+              </div>
+            </Link>
           </motion.div>
         </motion.div>
       </main>
