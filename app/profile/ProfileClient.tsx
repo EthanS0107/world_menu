@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { User, Mail, Phone, MapPin, Globe, Lock, ArrowLeft, Sparkles } from "lucide-react";
 
 const AUTH_DISABLED = true;
 
@@ -37,7 +39,7 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
 
   const handleSave = async () => {
     if (AUTH_DISABLED) {
-      setError("Modification désactivée temporairement.");
+      setError("Modification desactivee temporairement.");
       return;
     }
 
@@ -62,7 +64,7 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
       });
 
       if (res.ok) {
-        setSuccess("Profil mis à jour avec succès !");
+        setSuccess("Profil mis a jour avec succes !");
         setIsEditing(false);
         setShowPasswordSection(false);
         setCurrentPassword("");
@@ -70,7 +72,7 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
         router.refresh();
       } else {
         const data = await res.json();
-        setError(data.error || "Erreur lors de la mise à jour");
+        setError(data.error || "Erreur lors de la mise a jour");
       }
     } catch (_err) {
       setError("Une erreur est survenue.");
@@ -84,71 +86,107 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
     (lastName?.[0] || "").toUpperCase();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-teal-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="relative min-h-screen bg-[#0a0a0f] px-4 py-12 md:px-6 md:py-16">
+      {/* Background effects */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-[200px] left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(200,164,94,0.06)_0%,transparent_70%)]" />
+        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.04)_0%,transparent_70%)]" />
+      </div>
+      <div className="noise pointer-events-none absolute inset-0" />
+
+      <div className="relative z-10 mx-auto max-w-2xl">
         {/* Header Card */}
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02]"
+        >
           {/* Banner */}
-          <div className="h-32 bg-gradient-to-r from-indigo-600 to-teal-500 relative">
+          <div className="relative h-32 overflow-hidden bg-gradient-to-r from-[#0a0a0f] via-[#1a1a2e] to-[#0a0a0f]">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(200,164,94,0.15)_0%,transparent_70%)]" />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
+            {/* Avatar */}
             <div className="absolute -bottom-12 left-8">
-              <div className="w-24 h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center text-2xl font-black text-indigo-600 border-4 border-white">
+              <div className="flex h-24 w-24 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#111118] font-display text-2xl font-bold text-accent shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
                 {initials}
               </div>
             </div>
           </div>
 
-          <div className="pt-16 pb-6 px-8">
+          <div className="px-8 pb-6 pt-16">
             <div className="flex items-start justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="font-display text-2xl font-bold text-white">
                   {firstName || lastName
                     ? `${firstName} ${lastName}`.trim()
                     : user.email}
                 </h1>
-                <p className="text-gray-500 text-sm mt-1">{user.email}</p>
+                <p className="mt-1 flex items-center gap-2 text-sm text-white/40">
+                  <Mail className="h-3.5 w-3.5" />
+                  {user.email}
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 {user.isAdmin && (
-                  <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-400">
+                    <Sparkles className="h-3 w-3" />
                     Admin
                   </span>
                 )}
                 <span
-                  className={`px-3 py-1 text-xs font-bold rounded-full ${
+                  className={`rounded-full border px-3 py-1 text-xs font-semibold ${
                     user.isActive || user.isAdmin
-                      ? "bg-green-100 text-green-700"
-                      : "bg-gray-100 text-gray-500"
+                      ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-400"
+                      : "border-white/[0.06] bg-white/[0.03] text-white/40"
                   }`}
                 >
-                  {user.isActive || user.isAdmin ? "Abonné" : "Non abonné"}
+                  {user.isActive || user.isAdmin ? "Abonne" : "Non abonne"}
                 </span>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Messages */}
         {success && (
-          <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl text-sm font-medium">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-4 text-sm font-medium text-emerald-400"
+          >
             {success}
-          </div>
+          </motion.div>
         )}
         {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-600 px-5 py-4 rounded-2xl text-sm font-medium">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm font-medium text-red-400"
+          >
             {error}
-          </div>
+          </motion.div>
         )}
 
         {/* Informations */}
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 mb-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold text-gray-900">
-              Informations personnelles
-            </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 rounded-3xl border border-white/[0.06] bg-white/[0.02] p-8"
+        >
+          <div className="mb-8 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="h-px w-6 bg-accent" />
+              <h2 className="text-base font-semibold text-white">
+                Informations personnelles
+              </h2>
+            </div>
             {!isEditing && !AUTH_DISABLED && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="px-4 py-2 text-sm font-semibold text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/60 transition-all hover:bg-white/[0.08] hover:text-white"
               >
                 Modifier
               </button>
@@ -156,110 +194,75 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
           </div>
 
           {AUTH_DISABLED && (
-            <div className="mb-6 bg-amber-50 border border-amber-200 text-amber-700 px-5 py-4 rounded-2xl text-sm font-medium">
-              Connexion désactivée temporairement: profil affiché en lecture
+            <div className="mb-6 rounded-xl border border-amber-500/15 bg-amber-500/5 px-5 py-4 text-sm text-amber-400/80">
+              Connexion desactivee temporairement : profil affiche en lecture
               seule.
             </div>
           )}
 
           {isEditing ? (
             <div className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                    Prénom
-                  </label>
-                  <input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="Votre prénom"
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                    Nom
-                  </label>
-                  <input
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Votre nom"
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={user.email || ""}
-                  disabled
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-400 bg-gray-100 cursor-not-allowed"
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <InputField
+                  label="Prenom"
+                  icon={<User className="h-4 w-4" />}
+                  value={firstName}
+                  onChange={setFirstName}
+                  placeholder="Votre prenom"
                 />
-                <p className="text-xs text-gray-400 mt-1">
-                  L'email ne peut pas être modifié
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                  Téléphone{" "}
-                  <span className="text-gray-400 font-normal">(optionnel)</span>
-                </label>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+33 6 12 34 56 78"
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
+                <InputField
+                  label="Nom"
+                  icon={<User className="h-4 w-4" />}
+                  value={lastName}
+                  onChange={setLastName}
+                  placeholder="Votre nom"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                    Ville{" "}
-                    <span className="text-gray-400 font-normal">
-                      (optionnel)
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    placeholder="Paris"
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                    Pays{" "}
-                    <span className="text-gray-400 font-normal">
-                      (optionnel)
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    placeholder="France"
-                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
-                  />
-                </div>
+              <InputField
+                label="Email"
+                icon={<Mail className="h-4 w-4" />}
+                value={user.email || ""}
+                disabled
+                hint="L&apos;email ne peut pas etre modifie"
+              />
+
+              <InputField
+                label="Telephone"
+                icon={<Phone className="h-4 w-4" />}
+                value={phone}
+                onChange={setPhone}
+                placeholder="+33 6 12 34 56 78"
+                optional
+              />
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <InputField
+                  label="Ville"
+                  icon={<MapPin className="h-4 w-4" />}
+                  value={city}
+                  onChange={setCity}
+                  placeholder="Paris"
+                  optional
+                />
+                <InputField
+                  label="Pays"
+                  icon={<Globe className="h-4 w-4" />}
+                  value={country}
+                  onChange={setCountry}
+                  placeholder="France"
+                  optional
+                />
               </div>
 
               {/* Password Section */}
-              <div className="border-t pt-5 mt-5">
+              <div className="border-t border-white/[0.06] pt-5">
                 <button
                   type="button"
                   onClick={() => setShowPasswordSection(!showPasswordSection)}
-                  className="text-sm font-semibold text-gray-600 hover:text-indigo-600 transition-colors"
+                  className="flex items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-accent-light"
                 >
+                  <Lock className="h-3.5 w-3.5" />
                   {showPasswordSection
                     ? "Annuler le changement de mot de passe"
                     : "Changer le mot de passe"}
@@ -267,30 +270,22 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
 
                 {showPasswordSection && (
                   <div className="mt-4 space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                        Mot de passe actuel
-                      </label>
-                      <input
-                        type="password"
-                        value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                        placeholder="••••••••"
-                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-600 mb-1.5">
-                        Nouveau mot de passe
-                      </label>
-                      <input
-                        type="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        placeholder="••••••••"
-                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
-                      />
-                    </div>
+                    <InputField
+                      label="Mot de passe actuel"
+                      icon={<Lock className="h-4 w-4" />}
+                      value={currentPassword}
+                      onChange={setCurrentPassword}
+                      placeholder="••••••••"
+                      type="password"
+                    />
+                    <InputField
+                      label="Nouveau mot de passe"
+                      icon={<Lock className="h-4 w-4" />}
+                      value={newPassword}
+                      onChange={setNewPassword}
+                      placeholder="••••••••"
+                      type="password"
+                    />
                   </div>
                 )}
               </div>
@@ -300,7 +295,7 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
                 <button
                   onClick={handleSave}
                   disabled={loading}
-                  className="flex-1 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 disabled:opacity-50 transition-all"
+                  className="flex-1 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-[#0a0a0f] shadow-[0_4px_20px_rgba(200,164,94,0.25)] transition-all hover:shadow-[0_4px_30px_rgba(200,164,94,0.35)] disabled:opacity-50"
                 >
                   {loading ? "Enregistrement..." : "Enregistrer"}
                 </button>
@@ -317,65 +312,152 @@ export default function ProfileClient({ user }: { user: ProfileUser }) {
                     setNewPassword("");
                     setError("");
                   }}
-                  className="px-6 py-3 text-sm font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl transition-all"
+                  className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-6 py-3 text-sm font-medium text-white/60 transition-all hover:bg-white/[0.08] hover:text-white"
                 >
                   Annuler
                 </button>
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
-              <ProfileField label="Prénom" value={firstName} />
-              <ProfileField label="Nom" value={lastName} />
-              <ProfileField label="Email" value={user.email || ""} />
-              <ProfileField label="Téléphone" value={phone} optional />
-              <ProfileField label="Ville" value={city} optional />
-              <ProfileField label="Pays" value={country} optional />
-              <ProfileField label="Mot de passe" value="••••••••" />
+            <div className="space-y-1">
+              <ProfileField
+                icon={<User className="h-4 w-4" />}
+                label="Prenom"
+                value={firstName}
+              />
+              <ProfileField
+                icon={<User className="h-4 w-4" />}
+                label="Nom"
+                value={lastName}
+              />
+              <ProfileField
+                icon={<Mail className="h-4 w-4" />}
+                label="Email"
+                value={user.email || ""}
+              />
+              <ProfileField
+                icon={<Phone className="h-4 w-4" />}
+                label="Telephone"
+                value={phone}
+                optional
+              />
+              <ProfileField
+                icon={<MapPin className="h-4 w-4" />}
+                label="Ville"
+                value={city}
+                optional
+              />
+              <ProfileField
+                icon={<Globe className="h-4 w-4" />}
+                label="Pays"
+                value={country}
+                optional
+              />
+              <ProfileField
+                icon={<Lock className="h-4 w-4" />}
+                label="Mot de passe"
+                value="••••••••"
+              />
             </div>
           )}
-        </div>
+        </motion.div>
 
-        {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-4">
+        {/* Action buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-3 sm:flex-row"
+        >
           <Link
             href={user.isActive || user.isAdmin ? "/menu" : "/"}
-            className="flex-1 text-center flex items-center justify-center px-6 py-3 bg-white border border-gray-200 text-gray-700 font-semibold rounded-2xl shadow-sm hover:shadow-md transition-all text-sm"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-6 py-3 text-sm font-medium text-white/60 transition-all hover:bg-white/[0.06] hover:text-white"
           >
-            Retour à l'accueil
+            <ArrowLeft className="h-4 w-4" />
+            Retour a l&apos;accueil
           </Link>
           <Link
             href="/"
-            className="flex-1 text-center px-6 py-3 bg-blue-50 border border-blue-200 text-blue-600 font-semibold rounded-2xl hover:bg-blue-100 transition-all text-sm"
+            className="flex flex-1 items-center justify-center rounded-2xl border border-accent/20 bg-accent/5 px-6 py-3 text-sm font-medium text-accent-light transition-all hover:bg-accent/10"
           >
             Continuer la visite
           </Link>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 }
 
+function InputField({
+  label,
+  icon,
+  value,
+  onChange,
+  placeholder,
+  disabled,
+  hint,
+  optional,
+  type = "text",
+}: {
+  label: string;
+  icon: React.ReactNode;
+  value: string;
+  onChange?: (val: string) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  hint?: string;
+  optional?: boolean;
+  type?: string;
+}) {
+  return (
+    <div>
+      <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-white/50">
+        {icon}
+        {label}
+        {optional && (
+          <span className="font-normal text-white/25">(optionnel)</span>
+        )}
+      </label>
+      <input
+        type={type}
+        value={value}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={`w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3 text-sm text-white/90 placeholder:text-white/25 outline-none transition-all focus:border-accent/40 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(200,164,94,0.08)] ${
+          disabled ? "cursor-not-allowed text-white/30" : ""
+        }`}
+      />
+      {hint && <p className="mt-1 text-xs text-white/25">{hint}</p>}
+    </div>
+  );
+}
+
 function ProfileField({
+  icon,
   label,
   value,
   optional,
 }: {
+  icon: React.ReactNode;
   label: string;
   value: string;
   optional?: boolean;
 }) {
   return (
-    <div className="flex items-center py-3 border-b border-gray-50 last:border-0">
-      <span className="text-sm font-medium text-gray-500 w-32 shrink-0">
+    <div className="flex items-center border-b border-white/[0.04] py-3.5 last:border-0">
+      <span className="flex w-36 shrink-0 items-center gap-2 text-sm text-white/40">
+        {icon}
         {label}
       </span>
       <span
         className={`text-sm ${
-          value ? "text-gray-900 font-medium" : "text-gray-300 italic"
+          value && value !== "••••••••"
+            ? "font-medium text-white/80"
+            : "text-white/25 italic"
         }`}
       >
-        {value || (optional ? "Non renseigné" : "Non renseigné")}
+        {value || (optional ? "Non renseigne" : "Non renseigne")}
       </span>
     </div>
   );

@@ -5,265 +5,315 @@ import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import SectionReveal from "../../components/SectionReveal";
 
+const menuItems = [
+  {
+    label: "Entree",
+    dish: "Ata",
+    description:
+      "Beignet de haricots blancs croustillants, accompagnes d'une sauce pimentee.",
+    image: "/ata.jpg",
+  },
+  {
+    label: "Plat",
+    dish: "Wassa-Wassa",
+    description:
+      "Semoule de Manioc accompagnee de sauce tomate pimentee et d'un poisson braise a la Beninoise.",
+    image: "/wassa_wassa.jpg",
+  },
+  {
+    label: "Dessert",
+    dish: "Salade de Fruits",
+    description:
+      "Mangue, ananas, papaye et banane, legerement parfumes au citron vert et servis bien frais.",
+    image: "/salade_de_fruits_tropicaux.jpeg",
+  },
+];
+
 export default function BeninMenu() {
   return (
-    <PageTransition className="min-h-screen font-sans text-gray-800 bg-white overflow-x-hidden">
-      {/* --- SECTION 1: HERO --- */}
-      <section className="relative w-full min-h-[90vh] flex flex-col md:flex-row bg-white overflow-hidden">
-        {/* Background - Benin Flag Layout */}
-        <div className="absolute inset-0 z-0 flex flex-col md:flex-row">
-          {/* Green Vertical Band (Left) */}
-          <motion.div
-            initial={{ x: "-100%" }}
-            animate={{ x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="w-full md:w-[40%] h-1/2 md:h-full bg-[#008751]"
-          ></motion.div>
+    <PageTransition className="min-h-screen overflow-x-hidden bg-[#060e08]">
+      {/* ===== HERO ===== */}
+      <section className="relative min-h-screen overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(0,135,81,0.15)_0%,transparent_50%),radial-gradient(ellipse_at_70%_80%,rgba(232,17,45,0.08)_0%,transparent_50%)]" />
+        <div className="noise pointer-events-none absolute inset-0" />
 
-          {/* Right Side: Yellow and Red */}
-          <div className="w-full md:w-[60%] h-1/2 md:h-full flex flex-col">
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="w-full h-1/2 bg-[#FCD116]"
-            ></motion.div>
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full h-1/2 bg-[#E8112D]"
-            ></motion.div>
-          </div>
-        </div>
+        {/* Floating orb */}
+        <motion.div
+          animate={{ y: [-15, 15, -15], rotate: [0, -3, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-32 top-1/3 h-[350px] w-[350px] rounded-full bg-[#008751]/15 blur-[100px]"
+        />
+        <motion.div
+          animate={{ y: [10, -10, 10] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -right-20 bottom-1/4 h-[300px] w-[300px] rounded-full bg-[#FCD116]/8 blur-[80px]"
+        />
 
-        {/* Content Container */}
-        <div className="relative z-10 container mx-auto px-6 py-12 flex flex-col md:flex-row items-center h-full">
-          {/* Text Area - Left (Green area mainly) */}
-          <div className="w-full md:w-1/2 p-8 text-white md:text-white mb-8 md:mb-0">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center gap-12 px-6 py-24 md:flex-row md:gap-16 md:px-8">
+          {/* Hero text */}
+          <div className="w-full text-center md:w-1/2 md:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#008751]/30 bg-[#008751]/10 px-5 py-2 text-xs font-semibold tracking-[0.2em] text-[#4ade80] uppercase"
+            >
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#008751]" />
+              Benin
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-5xl md:text-7xl font-bold mb-6 tracking-tight drop-shadow-md"
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="font-display text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl"
             >
-              Menu typique <br />
-              <span>du Bénin</span>
+              Menu typique
+              <br />
+              <span className="bg-gradient-to-r from-[#008751] via-[#4ade80] to-[#008751] bg-clip-text text-transparent">
+                du Benin
+              </span>
             </motion.h1>
+
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: 80 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="w-20 h-2 bg-[#FCD116] mb-8"
-            ></motion.div>
-          </div>
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mx-auto mt-6 h-[2px] bg-[#FCD116] md:mx-0"
+            />
 
-          {/* Slogan - Right (Yellow/Red area) */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start p-8">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 2 }}
-              transition={{ duration: 0.8, delay: 1 }}
-              whileHover={{ rotate: 0 }}
-              className="bg-white/90 backdrop-blur-sm p-10 rounded-[40px] shadow-2xl transform rotate-2 transition-all duration-500"
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-6 max-w-lg text-lg leading-relaxed text-white/50 md:text-xl"
             >
-              <p className="text-2xl md:text-4xl font-black uppercase text-center leading-relaxed text-[#E8112D]">
-                Entrez, goûtez, voyagez :<br />
-                <span className="text-[#008751]">Le Bénin s'invite</span>
-                <br />
-                dans votre assiette
-              </p>
-            </motion.div>
+              Entrez, goutez, voyagez : le Benin s&apos;invite dans votre
+              assiette.
+            </motion.p>
           </div>
-        </div>
-      </section>
 
-      {/* --- SECTION 2: HISTORY --- */}
-      <section className="relative py-20 px-4 bg-gray-50 overflow-hidden">
-        <div className="container mx-auto relative z-10 flex flex-col md:flex-row items-center max-w-6xl">
-          {/* Text Content */}
-          <SectionReveal className="w-full md:w-2/3 relative z-10 order-2 md:order-1">
-            <div className="bg-[#1a1a1a] text-white p-10 md:p-16 rounded-3xl shadow-2xl">
-              <h2 className="text-4xl font-bold mb-6 text-[#FCD116] border-b-4 border-[#E8112D] inline-block pb-2">
-                Le Bénin
-              </h2>
-              <p className="text-lg leading-relaxed font-light opacity-90 mb-4">
-                Le Bénin, pays d'Afrique de l'Ouest, est bordé par le Togo, le
-                Nigéria, le Burkina Faso, le Niger et le golfe de Guinée. Ancien
-                royaume du Dahomey et colonie française, il a obtenu son
-                indépendance en 1960 et est aujourd'hui une démocratie stable.
-              </p>
-              <p className="text-lg leading-relaxed font-light opacity-90">
-                Le pays est riche en culture et traditions, notamment le vaudou,
-                la musique, la danse et l'artisanat. Son économie repose sur
-                l'agriculture (coton, noix de cajou, maïs) le commerce via le
-                port de Cotonou et le tourisme, avec des parcs nationaux comme
-                le Pendjari et des sites historiques liés à la traite négrière.
-              </p>
-            </div>
-          </SectionReveal>
-
-          {/* Image */}
-          <div className="w-full md:w-1/3 mb-8 md:mb-0 md:-mr-12 relative z-20 order-1 md:order-2">
-            <SectionReveal delay={0.3}>
-              <div className="rounded-r-2xl md:rounded-2xl overflow-hidden shadow-2xl border-4 border-white h-64 md:h-80 relative">
-                <motion.img
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.7 }}
-                  src="/benin_plage_1.jpg"
-                  alt="Plage du Bénin"
-                  className="w-full h-full object-cover transform scale-110"
-                />
+          {/* Slogan card */}
+          <div className="w-full md:w-1/2">
+            <SectionReveal delay={0.4}>
+              <div className="relative">
+                {/* Glow */}
+                <div className="absolute inset-0 translate-y-4 scale-95 rounded-3xl bg-[#008751]/15 blur-[40px]" />
+                <div className="relative rounded-3xl border border-white/[0.06] bg-white/[0.03] p-10 backdrop-blur-sm md:p-12">
+                  <p className="font-display text-center text-2xl font-bold leading-relaxed text-white md:text-3xl">
+                    <span className="text-[#E8112D]">
+                      Entrez, goutez, voyagez :
+                    </span>
+                    <br />
+                    <span className="text-[#008751]">
+                      Le Benin s&apos;invite
+                    </span>
+                    <br />
+                    dans votre assiette
+                  </p>
+                </div>
               </div>
             </SectionReveal>
           </div>
         </div>
+
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#060e08] to-transparent" />
       </section>
 
-      {/* --- SECTION 3: MENU --- */}
-      <section className="relative py-24 bg-[#008751] text-white overflow-hidden">
-        {/* Background Flag Style Overlay */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-[#FCD116] opacity-10"></div>
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-linear-to-t from-[#E8112D]/20 to-transparent"></div>
+      {/* ===== HISTORY ===== */}
+      <section className="relative overflow-hidden px-6 py-24 md:px-8 md:py-32">
+        <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#008751]/20 to-transparent" />
 
-        <div className="container mx-auto px-4 relative z-10">
-          <SectionReveal>
-            <h2 className="text-6xl font-black mb-16 text-center text-white drop-shadow-lg font-sans">
-              MENU
-            </h2>
-          </SectionReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Entrée */}
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center gap-12 md:flex-row md:gap-16">
+          {/* Image */}
+          <div className="order-1 w-full md:order-2 md:w-[38%]">
             <SectionReveal delay={0.2}>
-              <motion.div
-                whileHover={{ y: -10 }}
-                className="group bg-white rounded-3xl overflow-hidden shadow-xl"
-              >
-                <div className="h-64 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    src="/ata.jpg"
-                    alt="Atâ"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-8 text-gray-900">
-                  <h3 className="text-2xl font-black uppercase mb-3 text-[#008751]">
-                    Entrée
-                  </h3>
-                  <h4 className="text-xl font-bold mb-2">ATÂ</h4>
-                  <p className="text-gray-600 leading-snug">
-                    Beignet de haricots blancs croustillants, accompagnés d'une
-                    sauce pimentée.
-                  </p>
-                </div>
-                <div className="h-2 w-full bg-[#FCD116]"></div>
-              </motion.div>
-            </SectionReveal>
-
-            {/* Plat */}
-            <SectionReveal delay={0.4}>
-              <motion.div
-                whileHover={{ y: -10 }}
-                className="group bg-white rounded-3xl overflow-hidden shadow-xl md:-mt-8"
-              >
-                <div className="h-64 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    src="/wassa_wassa.jpg"
-                    alt="Wassa-Wassa"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-8 text-gray-900">
-                  <h3 className="text-2xl font-black uppercase mb-3 text-[#E8112D]">
-                    Plat
-                  </h3>
-                  <h4 className="text-xl font-bold mb-2">WASSA-WASSA</h4>
-                  <p className="text-gray-600 leading-snug">
-                    Semoule de Manioc accompagnée de sauce tomate pimentée et
-                    d'un poisson braisé à la Béninoise.
-                  </p>
-                </div>
-                <div className="h-2 w-full bg-[#E8112D]"></div>
-              </motion.div>
-            </SectionReveal>
-
-            {/* Dessert */}
-            <SectionReveal delay={0.6}>
-              <motion.div
-                whileHover={{ y: -10 }}
-                className="group bg-white rounded-3xl overflow-hidden shadow-xl"
-              >
-                <div className="h-64 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    src="/salade_de_fruits_tropicaux.jpeg"
-                    alt="Salade de fruits"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-8 text-gray-900">
-                  <h3 className="text-2xl font-black uppercase mb-3 text-[#FCD116]">
-                    Dessert
-                  </h3>
-                  <h4 className="text-xl font-bold mb-2">SALADE DE FRUITS</h4>
-                  <p className="text-gray-600 leading-snug">
-                    Mangue, ananas, papaye et banane, légèrement parfumés au
-                    citron vert et servis bien frais.
-                  </p>
-                </div>
-                <div className="h-2 w-full bg-[#008751]"></div>
-              </motion.div>
-            </SectionReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* --- SECTION 4: DRINK --- */}
-      <section className="relative py-24 bg-[#FCD116] flex flex-col items-center overflow-hidden">
-        {/* Decorative Circles */}
-        <motion.div
-          animate={{ scale: [1, 1.2, 1], rotate: [0, 10, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -left-20 top-20 w-64 h-64 border-8 border-[#008751] rounded-full opacity-20"
-        ></motion.div>
-        <motion.div
-          animate={{ scale: [1, 1.1, 1], rotate: [0, -10, 0] }}
-          transition={{ duration: 7, repeat: Infinity }}
-          className="absolute -right-20 bottom-20 w-80 h-80 bg-[#E8112D] rounded-full opacity-10"
-        ></motion.div>
-
-        <div className="container mx-auto px-4 z-10 flex flex-col md:flex-row items-center max-w-5xl">
-          {/* Drink Image */}
-          <div className="w-full md:w-1/2 mb-10 md:mb-0 md:pr-12">
-            <SectionReveal>
               <div className="relative">
-                <div className="absolute inset-0 bg-[#008751] transform translate-x-4 translate-y-4 rounded-3xl"></div>
-                <motion.img
-                  whileHover={{ rotate: 0 }}
-                  src="/bouye.jpg"
-                  alt="Bouye"
-                  className="relative z-10 rounded-3xl shadow-xl w-full max-w-md mx-auto transform -rotate-2 transition-transform duration-500"
-                />
+                <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-[#008751]/20 blur-sm" />
+                <div className="relative overflow-hidden rounded-2xl border border-white/[0.06]">
+                  <motion.img
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.6 }}
+                    src="/benin_plage_1.jpg"
+                    alt="Plage du Benin"
+                    className="h-[300px] w-full object-cover md:h-[380px]"
+                  />
+                </div>
               </div>
             </SectionReveal>
           </div>
 
           {/* Text */}
-          <div className="w-full md:w-1/2 text-left bg-white/80 p-10 rounded-3xl shadow-lg backdrop-blur-sm">
+          <div className="order-2 w-full md:order-1 md:w-[62%]">
+            <SectionReveal>
+              <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm md:p-12">
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="h-px w-8 bg-[#008751]" />
+                  <span className="text-xs font-semibold tracking-[0.2em] text-[#008751] uppercase">
+                    Histoire
+                  </span>
+                </div>
+                <h2 className="font-display mb-8 text-4xl font-bold text-white sm:text-5xl">
+                  Le Benin
+                </h2>
+                <p className="mb-5 text-base leading-[1.8] text-white/60">
+                  Le Benin, pays d&apos;Afrique de l&apos;Ouest, est borde par
+                  le Togo, le Nigeria, le Burkina Faso, le Niger et le golfe de
+                  Guinee. Ancien royaume du Dahomey et colonie francaise, il a
+                  obtenu son independance en 1960 et est aujourd&apos;hui une
+                  democratie stable.
+                </p>
+                <p className="text-base leading-[1.8] text-white/60">
+                  Le pays est riche en culture et traditions, notamment le
+                  vaudou, la musique, la danse et l&apos;artisanat. Son economie
+                  repose sur l&apos;agriculture (coton, noix de cajou, mais) le
+                  commerce via le port de Cotonou et le tourisme, avec des parcs
+                  nationaux comme le Pendjari et des sites historiques lies a la
+                  traite negriere.
+                </p>
+                <div className="mt-8 h-px w-full bg-gradient-to-r from-[#008751]/40 to-transparent" />
+              </div>
+            </SectionReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== MENU ===== */}
+      <section className="relative overflow-hidden px-6 py-24 md:px-8 md:py-32">
+        {/* Background glow */}
+        <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#008751]/8 blur-[120px]" />
+
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <SectionReveal>
+            <div className="mb-16 text-center md:mb-20">
+              <span className="mb-4 inline-block text-xs font-semibold tracking-[0.2em] text-[#008751] uppercase">
+                Gastronomie
+              </span>
+              <h2 className="font-display text-5xl font-bold text-white sm:text-6xl md:text-7xl">
+                Le Menu
+              </h2>
+            </div>
+          </SectionReveal>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {menuItems.map((item, i) => {
+              const accentColors = ["#008751", "#E8112D", "#FCD116"];
+              const accent = accentColors[i];
+
+              return (
+                <SectionReveal key={item.label} delay={0.15 * (i + 1)}>
+                  <motion.article
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="group overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02] transition-colors duration-500 hover:border-white/[0.1] hover:bg-white/[0.04]"
+                  >
+                    {/* Image */}
+                    <div className="relative h-[260px] overflow-hidden">
+                      <motion.img
+                        whileHover={{ scale: 1.06 }}
+                        transition={{ duration: 0.6 }}
+                        src={item.image}
+                        alt={item.dish}
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#060e08] via-transparent to-transparent" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 md:p-8">
+                      <div className="mb-3 flex items-center gap-2">
+                        <div
+                          className="h-px w-6"
+                          style={{ backgroundColor: accent }}
+                        />
+                        <span
+                          className="text-xs font-semibold tracking-[0.15em] uppercase"
+                          style={{ color: accent }}
+                        >
+                          {item.label}
+                        </span>
+                      </div>
+
+                      <h3 className="font-display mb-3 text-2xl font-bold text-white">
+                        {item.dish}
+                      </h3>
+
+                      <p className="text-sm leading-[1.7] text-white/50">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    {/* Bottom accent bar */}
+                    <div
+                      className="h-[2px] w-full opacity-60"
+                      style={{ backgroundColor: accent }}
+                    />
+                  </motion.article>
+                </SectionReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SIGNATURE DRINK ===== */}
+      <section className="relative overflow-hidden px-6 pb-24 pt-12 md:px-8 md:pb-32 md:pt-16">
+        {/* Decorative orbs */}
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], rotate: [0, 8, 0] }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute -left-20 top-20 h-[200px] w-[200px] rounded-full border border-[#008751]/15"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.1, 1], rotate: [0, -6, 0] }}
+          transition={{ duration: 7, repeat: Infinity }}
+          className="absolute -right-20 bottom-20 h-[250px] w-[250px] rounded-full bg-[#E8112D]/5 blur-[60px]"
+        />
+
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-12 md:flex-row md:gap-16">
+          {/* Drink image */}
+          <div className="w-full md:w-1/2">
+            <SectionReveal>
+              <div className="relative">
+                <div className="absolute inset-0 translate-x-4 translate-y-4 rounded-3xl bg-[#008751]/20 blur-sm" />
+                <div className="relative overflow-hidden rounded-3xl border border-white/[0.06]">
+                  <motion.img
+                    whileHover={{ scale: 1.04 }}
+                    transition={{ duration: 0.6 }}
+                    src="/bouye.jpg"
+                    alt="Bouye"
+                    className="h-[400px] w-full object-cover md:h-[480px]"
+                  />
+                </div>
+              </div>
+            </SectionReveal>
+          </div>
+
+          {/* Text */}
+          <div className="w-full md:w-1/2">
             <SectionReveal delay={0.2}>
-              <h2 className="text-5xl font-black mb-6 text-[#754c24]">BOUYE</h2>
-              <div className="w-24 h-2 bg-[#E8112D] mb-6"></div>
-              <p className="text-xl font-medium leading-relaxed text-gray-800">
-                Rafraichissante, légèrement acidulée et naturellement sucrée,
-                cette boisson à base de pulpe de Baobab allie saveur exotique et
-                bienfaits santé, pour un voyage gustatif unique.
-              </p>
+              <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm md:p-10">
+                <div className="mb-4 flex items-center gap-2">
+                  <div className="h-px w-8 bg-[#FCD116]" />
+                  <span className="text-xs font-semibold tracking-[0.2em] text-[#FCD116] uppercase">
+                    Boisson signature
+                  </span>
+                </div>
+
+                <h2 className="font-display mb-6 text-4xl font-bold text-white sm:text-5xl">
+                  Bouye
+                </h2>
+
+                <div className="mb-6 h-[2px] w-16 bg-[#E8112D]" />
+
+                <p className="text-base leading-[1.8] text-white/60 md:text-lg">
+                  Rafraichissante, legerement acidulee et naturellement sucree,
+                  cette boisson a base de pulpe de Baobab allie saveur exotique
+                  et bienfaits sante, pour un voyage gustatif unique.
+                </p>
+              </div>
             </SectionReveal>
           </div>
         </div>

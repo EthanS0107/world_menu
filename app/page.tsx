@@ -5,8 +5,18 @@ import SubscribeButton from "./components/SubscribeButton";
 
 const AUTH_DISABLED = true;
 
+type LandingSession = {
+  user: {
+    id?: string;
+    name?: string | null;
+    email?: string | null;
+    isActive?: boolean;
+    isAdmin?: boolean;
+  };
+};
+
 export default async function LandingPage() {
-  const session: any = AUTH_DISABLED
+  const session: LandingSession | null = AUTH_DISABLED
     ? {
         user: {
           id: "guest-user",
@@ -16,7 +26,7 @@ export default async function LandingPage() {
           isAdmin: false,
         },
       }
-    : await getServerSession(authOptions);
+    : ((await getServerSession(authOptions)) as LandingSession | null);
 
   const isActive = !!session?.user?.isActive;
   const isAdmin = !!session?.user?.isAdmin;
@@ -25,70 +35,59 @@ export default async function LandingPage() {
   const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50 flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-100 to-teal-100 rounded-full opacity-40 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full opacity-40 blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-teal-50 to-blue-50 rounded-full opacity-30 blur-3xl" />
+    <div className="relative min-h-screen overflow-hidden bg-[#0a0a0f]">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-40 right-[-5rem] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,_rgba(200,164,94,0.35),_rgba(200,164,94,0)_70%)] blur-3xl" />
+        <div className="absolute -bottom-40 left-[-6rem] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,_rgba(93,122,197,0.24),_rgba(93,122,197,0)_72%)] blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.05),transparent_25%,transparent_75%,rgba(255,255,255,0.05))]" />
       </div>
 
-      {/* Hero Section */}
-      <div className="relative z-10 px-6 pt-14 lg:px-8 max-w-3xl text-center w-full">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-blue-50 to-teal-50 border border-blue-200/50 rounded-full text-sm text-blue-700 font-medium mb-8 shadow-sm">
-          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+      <div className="noise relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center px-6 pt-14 pb-16 text-center lg:px-8">
+        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-slate-200 backdrop-blur-sm">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
           Explorez les cuisines du monde
         </div>
 
-        {/* Title */}
-        <h1 className="text-5xl sm:text-7xl font-black tracking-tight mb-6">
-          <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-            World
-          </span>{" "}
-          <span className="bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent">
-            Menu
-          </span>
+        <h1 className="mb-6 font-display text-5xl font-bold tracking-tight sm:text-7xl">
+          <span className="gradient-text-white">World</span>{" "}
+          <span className="gradient-text">Menu</span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="mt-4 text-lg sm:text-xl leading-relaxed text-gray-500 mb-12 max-w-xl mx-auto">
+        <p className="mx-auto mb-12 mt-2 max-w-2xl text-lg leading-relaxed text-slate-300 sm:text-xl">
           Découvrez les saveurs du monde entier. Abonnez-vous pour accéder à nos
           menus exclusifs et nos propositions culinaires.
         </p>
 
-        {/* Decorative icons row */}
-        <div className="flex items-center justify-center gap-6 mb-10 text-3xl">
-          <span className="grayscale hover:grayscale-0 transition-all duration-300 cursor-default hover:scale-125">
+        <div className="mb-10 flex items-center justify-center gap-6 text-3xl">
+          <span className="cursor-default grayscale transition-all duration-300 hover:scale-125 hover:grayscale-0">
             🇫🇷
           </span>
-          <span className="grayscale hover:grayscale-0 transition-all duration-300 cursor-default hover:scale-125">
+          <span className="cursor-default grayscale transition-all duration-300 hover:scale-125 hover:grayscale-0">
             🇯🇵
           </span>
-          <span className="grayscale hover:grayscale-0 transition-all duration-300 cursor-default hover:scale-125">
+          <span className="cursor-default grayscale transition-all duration-300 hover:scale-125 hover:grayscale-0">
             🇲🇽
           </span>
-          <span className="grayscale hover:grayscale-0 transition-all duration-300 cursor-default hover:scale-125">
+          <span className="cursor-default grayscale transition-all duration-300 hover:scale-125 hover:grayscale-0">
             🇮🇹
           </span>
-          <span className="grayscale hover:grayscale-0 transition-all duration-300 cursor-default hover:scale-125">
+          <span className="cursor-default grayscale transition-all duration-300 hover:scale-125 hover:grayscale-0">
             🇮🇳
           </span>
-          <span className="grayscale hover:grayscale-0 transition-all duration-300 cursor-default hover:scale-125">
+          <span className="cursor-default grayscale transition-all duration-300 hover:scale-125 hover:grayscale-0">
             🇧🇯
           </span>
-          <span className="grayscale hover:grayscale-0 transition-all duration-300 cursor-default hover:scale-125">
+          <span className="cursor-default grayscale transition-all duration-300 hover:scale-125 hover:grayscale-0">
             🇸🇨
           </span>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-6 w-full">
           {!session ? (
-            /* ─── Not logged in ─── */
-            <div className="w-full max-w-sm bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-xl shadow-gray-200/50 border border-white/80 flex flex-col gap-5">
-              <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-indigo-500/30">
+            <div className="glass premium-shadow w-full max-w-sm rounded-3xl border border-white/10 p-8">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#c8a45e]/30 bg-[#c8a45e]/12 text-[#e7d1a4]">
                 <svg
-                  className="w-7 h-7 text-white"
+                  className="h-7 w-7"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -102,46 +101,44 @@ export default async function LandingPage() {
                 </svg>
               </div>
 
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
+              <div className="mb-5 text-center">
+                <h3 className="mb-1 font-display text-2xl text-white">
                   Commencez l&apos;aventure
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-300">
                   Créez votre compte en quelques secondes.
                 </p>
               </div>
 
               <Link
                 href="/auth/signin"
-                className="w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:from-indigo-500 hover:to-blue-500 text-center transition-all duration-300"
+                className="w-full rounded-2xl bg-gradient-to-r from-[#a88a3e] via-[#c8a45e] to-[#dbb978] px-5 py-3.5 text-center text-sm font-bold text-[#171717] transition-all duration-300 hover:translate-y-[-1px] hover:shadow-[0_12px_30px_rgba(200,164,94,0.35)]"
               >
                 Se connecter avec Email
               </Link>
 
-              <p className="text-xs text-gray-400 text-center">
+              <p className="mt-4 text-center text-xs text-slate-400">
                 Pas encore de compte ? Il sera créé automatiquement.
               </p>
             </div>
           ) : (
-            /* ─── Logged in ─── */
-            <div className="w-full max-w-md bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl shadow-gray-200/50 border border-white/80 overflow-hidden">
-              {/* User header banner */}
-              <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-teal-500 px-8 py-6 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+            <div className="glass premium-shadow w-full max-w-md overflow-hidden rounded-3xl border border-white/10">
+              <div className="relative overflow-hidden border-b border-white/10 bg-gradient-to-r from-[#8c6f30] via-[#b8924a] to-[#d2b16f] px-8 py-6 text-[#171717]">
+                <div className="absolute top-0 right-0 h-32 w-32 translate-x-1/2 -translate-y-1/2 rounded-full bg-white/20" />
+                <div className="absolute bottom-0 left-0 h-20 w-20 -translate-x-1/2 translate-y-1/2 rounded-full bg-white/20" />
                 <div className="relative z-10">
-                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-xl font-bold mb-3 border border-white/30">
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border border-black/10 bg-black/10 text-xl font-bold">
                     {(
                       session.user.name?.[0] ||
                       session.user.email?.[0] ||
                       "U"
                     ).toUpperCase()}
                   </div>
-                  <p className="text-lg font-bold">
+                  <p className="text-lg font-bold text-[#101010]">
                     Bienvenue,{" "}
                     {session.user.name || session.user.email?.split("@")[0]} !
                   </p>
-                  <p className="text-sm text-white/70 mt-1 break-all">
+                  <p className="mt-1 break-all text-sm text-black/65">
                     {session.user.email}
                   </p>
                 </div>
@@ -151,10 +148,10 @@ export default async function LandingPage() {
                 <div className="flex items-center justify-between mb-6">
                   <Link
                     href="/profile"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-500 transition-colors group"
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-[#d9bc85] transition-colors hover:text-[#f0d9a8]"
                   >
                     <svg
-                      className="w-4 h-4"
+                      className="h-4 w-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -168,7 +165,7 @@ export default async function LandingPage() {
                     </svg>
                     Mon profil
                     <svg
-                      className="w-3 h-3 transition-transform group-hover:translate-x-0.5"
+                      className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -183,19 +180,18 @@ export default async function LandingPage() {
                   </Link>
 
                   {isSubscribed && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold rounded-full">
-                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-xs font-bold text-emerald-200">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
                       Abonné
                     </span>
                   )}
                 </div>
 
                 {!isSubscribed ? (
-                  /* Subscription CTA */
-                  <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/60 rounded-2xl p-6 text-center">
-                    <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/20">
+                  <div className="rounded-2xl border border-[#c8a45e]/25 bg-[#c8a45e]/10 p-6 text-center">
+                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#c8a45e] text-[#171717] shadow-[0_8px_24px_rgba(200,164,94,0.35)]">
                       <svg
-                        className="w-6 h-6 text-white"
+                        className="h-6 w-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -208,32 +204,31 @@ export default async function LandingPage() {
                         />
                       </svg>
                     </div>
-                    <p className="text-sm text-gray-600 mb-1">
+                    <p className="mb-1 text-sm text-slate-300">
                       Débloquez tous les menus
                     </p>
-                    <p className="text-3xl font-black text-gray-900 mb-1">
+                    <p className="mb-1 text-3xl font-black text-white">
                       9.99€
-                      <span className="text-base font-medium text-gray-400">
+                      <span className="text-base font-medium text-slate-400">
                         /mois
                       </span>
                     </p>
-                    <p className="text-xs text-gray-400 mb-5">
+                    <p className="mb-5 text-xs text-slate-400">
                       Accès illimité à toutes les destinations
                     </p>
                     {STRIPE_PRICE_ID ? (
                       <SubscribeButton priceId={STRIPE_PRICE_ID} />
                     ) : (
-                      <p className="text-red-500 text-xs">
+                      <p className="text-xs text-red-300">
                         Erreur de configuration (ID Prix Stripe manquant)
                       </p>
                     )}
                   </div>
                 ) : (
-                  /* Subscribed — access menu */
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/30">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-emerald-300/30 bg-emerald-300/12">
                       <svg
-                        className="w-8 h-8 text-white"
+                        className="h-8 w-8 text-emerald-200"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -246,18 +241,18 @@ export default async function LandingPage() {
                         />
                       </svg>
                     </div>
-                    <p className="text-emerald-700 font-bold text-lg mb-1">
+                    <p className="mb-1 text-lg font-bold text-emerald-200">
                       Vous êtes abonné !
                     </p>
-                    <p className="text-sm text-gray-400 mb-6">
+                    <p className="mb-6 text-sm text-slate-400">
                       Toutes les destinations sont débloquées.
                     </p>
                     <Link
                       href="/menu"
-                      className="inline-flex items-center justify-center gap-2 w-full rounded-2xl bg-gradient-to-r from-emerald-500 to-green-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:from-emerald-400 hover:to-green-400 transition-all duration-300"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#a88a3e] via-[#c8a45e] to-[#dbb978] px-6 py-3.5 text-sm font-bold text-[#171717] transition-all duration-300 hover:translate-y-[-1px] hover:shadow-[0_12px_30px_rgba(200,164,94,0.35)]"
                     >
                       <svg
-                        className="w-5 h-5"
+                        className="h-5 w-5"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -274,13 +269,13 @@ export default async function LandingPage() {
                   </div>
                 )}
 
-                <div className="mt-6 pt-5 border-t border-gray-100 text-center">
+                <div className="mt-6 border-t border-white/10 pt-5 text-center">
                   <Link
                     href="/"
-                    className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-indigo-500 transition-colors duration-200"
+                    className="inline-flex items-center gap-1.5 text-xs text-slate-400 transition-colors duration-200 hover:text-white"
                   >
                     <svg
-                      className="w-3.5 h-3.5"
+                      className="h-3.5 w-3.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

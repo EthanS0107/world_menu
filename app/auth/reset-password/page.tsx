@@ -55,9 +55,9 @@ function ResetPasswordForm() {
   if (!token) {
     return (
       <div className="text-center">
-        <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-red-500/30 bg-red-500/10">
           <svg
-            className="w-8 h-8 text-red-600"
+            className="h-8 w-8 text-red-200"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -70,13 +70,13 @@ function ResetPasswordForm() {
             />
           </svg>
         </div>
-        <h2 className="text-xl font-bold text-gray-900 mb-2">Lien invalide</h2>
-        <p className="text-gray-500 text-sm mb-6">
+        <h2 className="mb-2 font-display text-2xl text-white">Lien invalide</h2>
+        <p className="mb-6 text-sm text-slate-300">
           Ce lien de réinitialisation est invalide ou a expiré.
         </p>
         <Link
           href="/auth/forgot-password"
-          className="inline-flex items-center gap-2 text-indigo-600 font-semibold hover:text-indigo-500 transition-colors text-sm"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-[#d9bc85] transition-colors hover:text-[#f0d9a8]"
         >
           Demander un nouveau lien
         </Link>
@@ -87,9 +87,9 @@ function ResetPasswordForm() {
   if (success) {
     return (
       <div className="text-center">
-        <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-emerald-300/30 bg-emerald-300/12">
           <svg
-            className="w-8 h-8 text-green-600"
+            className="h-8 w-8 text-emerald-200"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -102,19 +102,19 @@ function ResetPasswordForm() {
             />
           </svg>
         </div>
-        <h2 className="text-xl font-bold text-gray-900 mb-2">
+        <h2 className="mb-2 font-display text-2xl text-white">
           Mot de passe réinitialisé !
         </h2>
-        <p className="text-gray-500 text-sm mb-6">
+        <p className="mb-6 text-sm text-slate-300">
           Votre mot de passe a été modifié avec succès. Vous pouvez maintenant
           vous connecter avec votre nouveau mot de passe.
         </p>
         <Link
           href="/auth/signin"
-          className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:from-indigo-500 hover:to-blue-500 transition-all duration-300"
+          className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#a88a3e] via-[#c8a45e] to-[#dbb978] px-6 py-3 text-sm font-bold text-[#171717] transition-all duration-300 hover:translate-y-[-1px] hover:shadow-[0_12px_30px_rgba(200,164,94,0.35)]"
         >
           <svg
-            className="w-4 h-4"
+            className="h-4 w-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -134,10 +134,10 @@ function ResetPasswordForm() {
 
   return (
     <>
-      <div className="text-center mb-6">
-        <div className="mx-auto w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4">
+      <div className="mb-6 text-center">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-[#c8a45e]/30 bg-[#c8a45e]/12">
           <svg
-            className="w-8 h-8 text-indigo-600"
+            className="h-8 w-8 text-[#e7d1a4]"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -150,10 +150,10 @@ function ResetPasswordForm() {
             />
           </svg>
         </div>
-        <h2 className="text-xl font-bold text-gray-900 mb-1">
+        <h2 className="mb-1 font-display text-2xl text-white">
           Nouveau mot de passe
         </h2>
-        <p className="text-gray-400 text-sm">
+        <p className="text-sm text-slate-300">
           Choisissez un nouveau mot de passe sécurisé.
         </p>
       </div>
@@ -162,14 +162,14 @@ function ResetPasswordForm() {
         <div>
           <label
             htmlFor="password"
-            className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5"
+            className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
           >
             Nouveau mot de passe
           </label>
           <div className="relative">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -191,16 +191,16 @@ function ResetPasswordForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-xl border border-gray-200 pl-10 pr-12 py-3 text-sm text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all bg-gray-50/50 focus:bg-white"
+              className="w-full rounded-xl border border-white/15 bg-white/5 py-3 pr-12 pl-10 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-[#c8a45e] focus:bg-white/10 focus:ring-2 focus:ring-[#c8a45e]/20"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-white"
             >
               {showPassword ? (
                 <svg
-                  className="w-4 h-4"
+                  className="h-4 w-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -214,7 +214,7 @@ function ResetPasswordForm() {
                 </svg>
               ) : (
                 <svg
-                  className="w-4 h-4"
+                  className="h-4 w-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -240,14 +240,14 @@ function ResetPasswordForm() {
         <div>
           <label
             htmlFor="confirmPassword"
-            className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5"
+            className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
           >
             Confirmer le mot de passe
           </label>
           <div className="relative">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -269,15 +269,15 @@ function ResetPasswordForm() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-xl border border-gray-200 pl-10 pr-4 py-3 text-sm text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all bg-gray-50/50 focus:bg-white"
+              className="w-full rounded-xl border border-white/15 bg-white/5 py-3 pr-4 pl-10 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-[#c8a45e] focus:bg-white/10 focus:ring-2 focus:ring-[#c8a45e]/20"
             />
           </div>
         </div>
 
         {error && (
-          <div className="flex items-center gap-3 bg-red-50 border border-red-200/80 text-red-600 text-sm px-4 py-3 rounded-xl">
+          <div className="flex items-center gap-3 rounded-xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-200">
             <svg
-              className="w-5 h-5 shrink-0"
+              className="h-5 w-5 shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -296,12 +296,12 @@ function ResetPasswordForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:from-indigo-500 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mt-1 flex items-center justify-center gap-2"
+          className="mt-1 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#a88a3e] via-[#c8a45e] to-[#dbb978] px-4 py-3.5 text-sm font-bold text-[#171717] transition-all duration-300 hover:translate-y-[-1px] hover:shadow-[0_12px_30px_rgba(200,164,94,0.35)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? (
             <>
               <svg
-                className="w-4 h-4 animate-spin"
+                className="h-4 w-4 animate-spin"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -324,7 +324,7 @@ function ResetPasswordForm() {
           ) : (
             <>
               <svg
-                className="w-4 h-4"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -347,39 +347,32 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50 flex flex-col items-center justify-center px-4 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full opacity-50 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-full opacity-50 blur-3xl" />
-        <div className="absolute top-20 left-1/4 w-64 h-64 bg-gradient-to-br from-purple-50 to-pink-50 rounded-full opacity-30 blur-3xl" />
+    <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-[#0a0a0f] px-4 py-10 sm:px-6">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-32 right-[-4rem] h-80 w-80 rounded-full bg-[radial-gradient(circle,_rgba(200,164,94,0.35),_rgba(200,164,94,0)_68%)] blur-2xl" />
+        <div className="absolute -bottom-36 left-[-6rem] h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,_rgba(94,120,200,0.24),_rgba(94,120,200,0)_72%)] blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.04),transparent_28%,transparent_72%,rgba(255,255,255,0.04))]" />
       </div>
 
-      <div className="w-full max-w-md relative z-10">
-        {/* Logo */}
-        <div className="text-center mb-8">
+      <div className="noise relative z-10 mx-auto w-full max-w-md animate-fade-up">
+        <div className="mb-8 text-center">
           <Link href="/" className="inline-block group">
-            <h1 className="text-5xl font-black mb-3">
-              <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                World
-              </span>{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent">
-                Menu
-              </span>
+            <h1 className="font-display text-5xl font-bold leading-none tracking-tight sm:text-6xl">
+              <span className="gradient-text-white">World</span>{" "}
+              <span className="gradient-text">Menu</span>
             </h1>
           </Link>
-          <p className="text-gray-400 text-sm">
+          <p className="mt-3 text-sm text-slate-300">
             Réinitialisation du mot de passe
           </p>
         </div>
 
-        {/* Card */}
-        <div className="bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-xl shadow-gray-200/50 border border-white/80">
+        <div className="glass premium-shadow rounded-3xl border border-white/10 p-6 sm:p-8">
           <Suspense
             fallback={
               <div className="text-center py-8">
                 <svg
-                  className="w-8 h-8 animate-spin mx-auto text-indigo-600"
+                  className="mx-auto h-8 w-8 animate-spin text-[#d9bc85]"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -404,14 +397,13 @@ export default function ResetPasswordPage() {
           </Suspense>
         </div>
 
-        {/* Back to home */}
-        <div className="text-center mt-6">
+        <div className="mt-6 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors hover:text-white"
           >
             <svg
-              className="w-4 h-4"
+              className="h-4 w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

@@ -2,153 +2,169 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import PageTransition from "../components/PageTransition";
 
-const container = {
+const countries = [
+  {
+    name: "Tunisie",
+    slug: "tunisie",
+    tagline: "Saveurs mediterraneennes & epices vibrantes",
+    image:
+      "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?auto=format&fit=crop&w=800&q=80",
+    accent: "#c2384d",
+    accentGlow: "rgba(194, 56, 77, 0.3)",
+  },
+  {
+    name: "Benin",
+    slug: "benin",
+    tagline: "Authenticite de l'Afrique de l'Ouest",
+    image: "/benin_plage_1.jpg",
+    accent: "#1a7a3d",
+    accentGlow: "rgba(26, 122, 61, 0.3)",
+  },
+  {
+    name: "Seychelles",
+    slug: "seychelles",
+    tagline: "Exotisme tropical & fraicheur oceanique",
+    image: "/seychelles_plage_1.webp",
+    accent: "#0ea5a0",
+    accentGlow: "rgba(14, 165, 160, 0.3)",
+  },
+];
+
+const containerVariants = {
   hidden: { opacity: 0 },
-  show: {
+  visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
   },
 };
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 export default function MenuPage() {
   return (
-    <PageTransition className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <main className="max-w-4xl w-full text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-4xl md:text-6xl font-bold text-gray-900 mb-8"
-        >
-          Découvrez World Menu
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-xl text-gray-600 mb-12"
-        >
-          Sélectionnez une destination pour découvrir ses saveurs typiques.
-        </motion.p>
+    <PageTransition className="min-h-screen bg-surface-dark relative overflow-hidden">
+      {/* Background gradient orbs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-[300px] left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(200,164,94,0.08)_0%,transparent_70%)]" />
+        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(14,165,160,0.06)_0%,transparent_70%)]" />
+        <div className="absolute right-0 top-1/3 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(194,56,77,0.05)_0%,transparent_70%)]" />
+      </div>
 
+      {/* Noise texture */}
+      <div className="noise pointer-events-none absolute inset-0" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-32 pt-24 md:px-8 md:pt-32 lg:pt-40">
+        {/* Header */}
+        <div className="mb-20 text-center md:mb-28">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium tracking-widest text-accent-light uppercase backdrop-blur-sm"
+          >
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+            Explorez le monde
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+          >
+            <span className="gradient-text-white">Destinations</span>
+            <br />
+            <span className="gradient-text">Culinaires</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto mt-8 max-w-xl font-body text-lg leading-relaxed text-[#9090a8] md:text-xl"
+          >
+            Chaque pays raconte une histoire a travers sa cuisine.
+            Selectionnez une destination pour un voyage gustatif unique.
+          </motion.p>
+        </div>
+
+        {/* Country Cards */}
         <motion.div
-          variants={container}
+          variants={containerVariants}
           initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          animate="visible"
+          className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8"
         >
-          {/* Card Seychelles */}
-          <motion.div variants={item}>
-            <Link
-              href="/menu/seychelles"
-              className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="h-48 bg-blue-600 relative overflow-hidden">
-                {/* Flag animated on hover maybe? */}
-                <div className="absolute inset-0 bg-blue-600 transition-transform duration-700 group-hover:scale-110"></div>
-                <div className="absolute inset-0 bg-yellow-400 w-full h-full origin-bottom-left -skew-x-12 opacity-80 translate-x-1/4 transition-transform duration-700 group-hover:translate-x-[28%]"></div>
-                <div className="absolute inset-0 bg-red-600 w-full h-full origin-bottom-left -skew-x-12 opacity-80 translate-x-1/2 transition-transform duration-700 group-hover:translate-x-[55%]"></div>
-                <div className="absolute bottom-0 w-full h-4 bg-green-600"></div>
+          {countries.map((country) => (
+            <motion.div key={country.slug} variants={cardVariants}>
+              <Link href={`/menu/${country.slug}`} className="group block">
+                <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] bg-surface-elevated transition-all duration-500 hover:border-white/[0.12] md:rounded-3xl">
+                  {/* Image */}
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <motion.img
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                      src={country.image}
+                      alt={country.name}
+                      className="h-full w-full object-cover"
+                    />
 
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.span
-                    whileHover={{ scale: 1.2, rotate: 10 }}
-                    className="text-white text-3xl font-bold drop-shadow-md"
-                  >
-                    🇸🇨
-                  </motion.span>
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+                    {/* Glow on hover */}
+                    <div
+                      className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      style={{
+                        background: `radial-gradient(ellipse at 50% 80%, ${country.accentGlow}, transparent 70%)`,
+                      }}
+                    />
+                  </div>
+
+                  {/* Content overlay */}
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                    <div className="mb-3 flex items-center gap-3">
+                      <div
+                        className="h-[2px] w-8 transition-all duration-500 group-hover:w-12"
+                        style={{ backgroundColor: country.accent }}
+                      />
+                      <span
+                        className="text-xs font-semibold tracking-[0.2em] uppercase"
+                        style={{ color: country.accent }}
+                      >
+                        Decouvrir
+                      </span>
+                    </div>
+
+                    <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
+                      {country.name}
+                    </h2>
+
+                    <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-base">
+                      {country.tagline}
+                    </p>
+
+                    <div className="mt-6 flex items-center gap-2 text-sm font-medium text-white/50 transition-all duration-500 group-hover:text-white/90">
+                      <span>Explorer le menu</span>
+                      <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
-                  Seychelles
-                </h2>
-                <p className="text-gray-600">
-                  Plongez dans l&apos;exotisme avec nos plats aux saveurs de
-                  coco, de poisson frais et d&apos;epices tropicales.
-                </p>
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* Card Bénin */}
-          <motion.div variants={item}>
-            <Link
-              href="/menu/benin"
-              className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="h-48 bg-[#008751] relative overflow-hidden">
-                {/* Flag animation */}
-                <div className="absolute left-0 top-0 h-full w-[40%] bg-[#008751] transition-all duration-500 group-hover:w-[45%]"></div>
-                <div className="absolute right-0 top-0 h-1/2 w-[60%] bg-[#FCD116] transition-all duration-500 group-hover:w-[55%]"></div>
-                <div className="absolute right-0 bottom-0 h-1/2 w-[60%] bg-[#E8112D] transition-all duration-500 group-hover:w-[55%]"></div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.span
-                    whileHover={{ scale: 1.2, rotate: -10 }}
-                    className="text-white text-3xl font-bold drop-shadow-md"
-                  >
-                    🇧🇯
-                  </motion.span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-[#008751] transition-colors">
-                  Bénin
-                </h2>
-                <p className="text-gray-600">
-                  Savourez l&apos;authenticite de l&apos;Afrique de l&apos;Ouest
-                  avec le Wassa-Wassa et nos beignets traditionnels.
-                </p>
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* Card Tunisie */}
-          <motion.div variants={item}>
-            <Link
-              href="/menu/tunisie"
-              className="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="h-48 relative overflow-hidden bg-[#f0041e]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#ff3f4d_0%,#f0041e_52%,#aa0014_100%)]"></div>
-                <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"></div>
-                <div className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-[40%] -translate-y-1/2 rounded-full border-[12px] border-[#f0041e]"></div>
-                <div className="absolute left-1/2 top-1/2 -translate-y-1/2 translate-x-[14px] text-3xl text-[#f0041e]">
-                  ★
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.span
-                    whileHover={{ scale: 1.2, rotate: 6 }}
-                    className="text-white text-3xl font-bold drop-shadow-md"
-                  >
-                    🇹🇳
-                  </motion.span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-[#c90018] transition-colors">
-                  Tunisie
-                </h2>
-                <p className="text-gray-600">
-                  Découvrez les saveurs tunisiennes entre fraîcheur
-                  méditerranéenne, épices vibrantes et gourmandise orientale.
-                </p>
-              </div>
-            </Link>
-          </motion.div>
+              </Link>
+            </motion.div>
+          ))}
         </motion.div>
-      </main>
+      </div>
     </PageTransition>
   );
 }

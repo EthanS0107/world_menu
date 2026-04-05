@@ -5,278 +5,297 @@ import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import SectionReveal from "../../components/SectionReveal";
 
+const menuItems = [
+  {
+    label: "Entree",
+    dish: "Salade de Palmiste",
+    description:
+      "Coeur de palmier croquant, legumes frais nappes d'une vinaigrette delicate aux notes citronnees.",
+    image: "/salade_de_fruits_tropicaux.jpeg",
+  },
+  {
+    label: "Plat",
+    dish: "Chutney de Requin",
+    description:
+      "A base de requin tendre, mijote avec oignons, ail, gingembre, tomates, epices locales et une touche de piment.",
+    image: "/chutney_de_requin.webp",
+  },
+  {
+    label: "Dessert",
+    dish: "Le Ladob",
+    description:
+      "Banane et patates douces cuits dans du lait de coco parfume a la vanille, subtilement sucre et reconfortant.",
+    image: "/le_ladob.jpg",
+  },
+];
+
+const heroImages = [
+  "/seychelles_plage_1.webp",
+  "/seychelles_plage_2.webp",
+  "/seychelles_plage_3.jpg",
+  "/seychelles_plage_4.jpg",
+];
+
 export default function SeychellesMenu() {
   return (
-    <PageTransition className="min-h-screen font-sans text-gray-800 bg-white overflow-x-hidden">
-      {/* --- SECTION 1: HERO --- */}
-      {/* Background stylized with Seychelles flag colors roughly */}
-      <section className="relative w-full min-h-[90vh] flex flex-col md:flex-row bg-white overflow-hidden">
-        {/* Abstract Background Shapes mimicking the flag rays */}
-        <div className="absolute inset-0 z-0">
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="absolute top-0 left-0 w-full h-[60%] bg-[#003D88] origin-bottom-left -skew-y-6 transform scale-150 translate-x-[-20%]"
-          ></motion.div>{" "}
-          {/* Blue */}
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="absolute top-0 right-0 w-[70%] h-full bg-[#D12421] origin-bottom-left skew-x-12 opacity-90"
-          ></motion.div>{" "}
-          {/* Red */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.9 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="absolute top-0 left-[30%] w-[30%] h-full bg-[#FCD856] origin-bottom-left skew-x-12 opacity-90"
-          ></motion.div>{" "}
-          {/* Yellow */}
-          <motion.div
-            initial={{ y: 100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="absolute bottom-0 w-full h-[150px] bg-[#007A3D]"
-          ></motion.div>{" "}
-          {/* Green */}
-        </div>
+    <PageTransition className="min-h-screen overflow-x-hidden bg-[#060e1a]">
+      {/* ===== HERO ===== */}
+      <section className="relative min-h-screen overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,rgba(14,165,160,0.12)_0%,transparent_50%),radial-gradient(ellipse_at_80%_70%,rgba(0,61,136,0.1)_0%,transparent_50%)]" />
+        <div className="noise pointer-events-none absolute inset-0" />
 
-        {/* Content Container */}
-        <div className="relative z-10 container mx-auto px-4 py-12 flex flex-col md:flex-row items-center h-full">
-          {/* Text Area */}
-          <div className="w-full md:w-1/2 p-8 bg-white/90 rounded-[40px] shadow-xl backdrop-blur-sm md:mr-8 mb-8 md:mb-0">
+        {/* Floating orbs */}
+        <motion.div
+          animate={{ y: [-12, 12, -12], x: [0, 8, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -right-32 top-1/4 h-[400px] w-[400px] rounded-full bg-[#0ea5a0]/10 blur-[100px]"
+        />
+        <motion.div
+          animate={{ y: [10, -10, 10] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-20 bottom-1/3 h-[300px] w-[300px] rounded-full bg-[#003D88]/15 blur-[80px]"
+        />
+
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center gap-12 px-6 py-24 md:flex-row md:gap-16 md:px-8">
+          {/* Hero text */}
+          <div className="w-full text-center md:w-1/2 md:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#0ea5a0]/30 bg-[#0ea5a0]/10 px-5 py-2 text-xs font-semibold tracking-[0.2em] text-[#5eead4] uppercase"
+            >
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#0ea5a0]" />
+              Seychelles
+            </motion.div>
+
             <motion.h1
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-5xl md:text-7xl font-bold mb-6 text-black tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="font-display text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl"
             >
-              Menu typique <br />
-              <span className="text-black">seychellois</span>
+              Menu typique
+              <br />
+              <span className="bg-gradient-to-r from-[#0ea5a0] via-[#5eead4] to-[#0ea5a0] bg-clip-text text-transparent">
+                seychellois
+              </span>
             </motion.h1>
+
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-xl font-bold uppercase tracking-wide leading-relaxed text-gray-900"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-6 max-w-lg text-lg leading-relaxed text-white/50 md:text-xl"
             >
-              Laissez-vous porter par les saveurs ensoleillées des Seychelles,
-              là où l'océan rencontre l'excellence culinaire.
+              Laissez-vous porter par les saveurs ensoleillees des Seychelles,
+              la ou l&apos;ocean rencontre l&apos;excellence culinaire.
             </motion.p>
           </div>
 
-          {/* Images Grid (Mockup) */}
-          <div className="w-full md:w-1/2 flex flex-wrap gap-4 h-[500px]">
-            <div className="w-full h-1/2 flex gap-4">
-              {/* Replace with your beach/rock images */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1 }}
-                className="flex-1 bg-gray-300 rounded-3xl bg-[url('/seychelles_plage_1.webp')] bg-cover bg-center border-4 border-white shadow-lg transform hover:scale-105 transition-transform duration-300"
-              ></motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.2 }}
-                className="flex-1 bg-gray-300 rounded-3xl bg-[url('/seychelles_plage_2.webp')] bg-cover bg-center border-4 border-white shadow-lg transform hover:scale-105 transition-transform duration-300 translate-y-8"
-              ></motion.div>
-            </div>
-            <div className="w-full h-1/2 flex gap-4 mt-4">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.4 }}
-                className="flex-1 bg-gray-300 rounded-3xl bg-[url('/seychelles_plage_3.jpg')] bg-cover bg-center border-4 border-white shadow-lg transform hover:scale-105 transition-transform duration-300"
-              ></motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.6 }}
-                className="flex-1 bg-gray-300 rounded-3xl bg-[url('/seychelles_plage_4.jpg')] bg-cover bg-center border-4 border-white shadow-lg transform hover:scale-105 transition-transform duration-300 translate-y-8"
-              ></motion.div>
+          {/* Image grid */}
+          <div className="w-full md:w-1/2">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
+              {heroImages.map((img, i) => (
+                <motion.div
+                  key={img}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.6 + i * 0.15,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className={`overflow-hidden rounded-2xl border border-white/[0.06] ${
+                    i % 2 === 1 ? "translate-y-6" : ""
+                  }`}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.06 }}
+                    transition={{ duration: 0.5 }}
+                    className="h-[180px] w-full bg-cover bg-center md:h-[220px]"
+                    style={{ backgroundImage: `url('${img}')` }}
+                  />
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
+
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#060e1a] to-transparent" />
       </section>
 
-      {/* --- SECTION 2: HISTORY --- */}
-      <section className="relative py-20 px-4 bg-white overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute right-0 top-0 w-1/2 h-full bg-[#D12421] -skew-x-12 translate-x-1/4 z-0"></div>
-        <div className="absolute left-0 bottom-0 w-full h-1/2 bg-[#003D88] -skew-y-3 z-0"></div>
+      {/* ===== HISTORY ===== */}
+      <section className="relative overflow-hidden px-6 py-24 md:px-8 md:py-32">
+        <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-[#0ea5a0]/20 to-transparent" />
 
-        <div className="container mx-auto relative z-10 flex flex-col md:flex-row items-center max-w-6xl">
-          <SectionReveal className="w-full md:w-2/3">
-            <div className="bg-white p-10 md:p-16 rounded-[50px] shadow-2xl relative">
-              <h2 className="text-4xl font-bold mb-6 text-gray-900 border-l-8 border-[#FCD856] pl-4">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center gap-12 md:flex-row md:gap-16">
+          {/* Text */}
+          <SectionReveal className="w-full md:w-[62%]">
+            <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm md:p-12">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="h-px w-8 bg-[#0ea5a0]" />
+                <span className="text-xs font-semibold tracking-[0.2em] text-[#0ea5a0] uppercase">
+                  Histoire
+                </span>
+              </div>
+              <h2 className="font-display mb-8 text-4xl font-bold text-white sm:text-5xl">
                 Les Seychelles
               </h2>
-              <p className="text-lg leading-relaxed font-semibold text-gray-800">
-                Les Seychelles étaient inhabitées avant l’arrivée des Européens.
-                Colonisées par la France puis par le Royaume-Uni, elles
-                deviennent indépendantes en 1976. Après une période de régime à
-                parti unique, la démocratie est rétablie en 1993. Aujourd’hui,
-                le pays est stable et doté d’institutions démocratiques solides,
-                et son économie repose principalement sur le tourisme, la pêche
-                et la protection de l’environnement.
+              <p className="text-base leading-[1.8] text-white/60 md:text-lg">
+                Les Seychelles etaient inhabitees avant l&apos;arrivee des
+                Europeens. Colonisees par la France puis par le Royaume-Uni,
+                elles deviennent independantes en 1976. Apres une periode de
+                regime a parti unique, la democratie est retablie en 1993.
+                Aujourd&apos;hui, le pays est stable et dote
+                d&apos;institutions democratiques solides, et son economie
+                repose principalement sur le tourisme, la peche et la protection
+                de l&apos;environnement.
               </p>
+              <div className="mt-8 h-px w-full bg-gradient-to-r from-[#0ea5a0]/40 to-transparent" />
             </div>
           </SectionReveal>
 
-          {/* Island Image */}
-          <div className="w-full md:w-1/3 mt-10 md:mt-0 md:-ml-8 relative">
+          {/* Image */}
+          <div className="w-full md:w-[38%]">
             <SectionReveal delay={0.3}>
-              <motion.div
-                whileHover={{ rotate: 5, scale: 1.05 }}
-                className="rounded-2xl overflow-hidden shadow-2xl border-8 border-white transform rotate-3 h-64 md:h-80 bg-[url('/seychelles_plage_5.jpg')] bg-cover bg-center"
-              ></motion.div>
+              <div className="relative">
+                <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-[#0ea5a0]/15 blur-sm" />
+                <div className="relative overflow-hidden rounded-2xl border border-white/[0.06]">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.6 }}
+                    className="h-[300px] w-full bg-cover bg-center md:h-[380px]"
+                    style={{
+                      backgroundImage: "url('/seychelles_plage_5.jpg')",
+                    }}
+                  />
+                </div>
+              </div>
             </SectionReveal>
-            {/* Paper curl effect simulation */}
-            <div className="absolute bottom-0 right-0 w-12 h-12 bg-white skew-x-12 translate-y-6 translate-x-2 hidden md:block"></div>
           </div>
         </div>
       </section>
 
-      {/* --- SECTION 3: MENU --- */}
-      <section className="relative py-24 bg-[#003D88] text-white overflow-hidden">
-        {/* Diagonal Slashes */}
-        <div className="absolute top-0 right-0 w-[70%] h-full bg-[#D12421] transform -skew-x-[20deg] origin-top-right"></div>
-        <div className="absolute top-0 left-[20%] w-[30%] h-full bg-[#FCD856] transform -skew-x-[20deg] opacity-100"></div>
+      {/* ===== MENU ===== */}
+      <section className="relative overflow-hidden px-6 py-24 md:px-8 md:py-32">
+        {/* Background glow */}
+        <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0ea5a0]/6 blur-[120px]" />
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="relative z-10 mx-auto max-w-7xl">
           <SectionReveal>
-            <h2 className="text-6xl font-black mb-16 text-left drop-shadow-md font-sans">
-              MENU
-            </h2>
+            <div className="mb-16 text-center md:mb-20">
+              <span className="mb-4 inline-block text-xs font-semibold tracking-[0.2em] text-[#0ea5a0] uppercase">
+                Gastronomie
+              </span>
+              <h2 className="font-display text-5xl font-bold text-white sm:text-6xl md:text-7xl">
+                Le Menu
+              </h2>
+            </div>
           </SectionReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-black">
-            {/* Entrée */}
-            <SectionReveal delay={0.2}>
-              <motion.div
-                whileHover={{ y: -10 }}
-                className="bg-white/95 rounded-b-[40px] rounded-t-full pb-8 pt-0 px-6 shadow-xl text-center"
-              >
-                <div className="w-48 h-48 mx-auto -mt-12 mb-6 rounded-full border-4 border-white shadow-lg bg-gray-200 overflow-hidden relative z-10">
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                    src="/salade_de_fruits_tropicaux.jpeg"
-                    alt="Salade de palmiste"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="text-xl font-black uppercase mb-4">Entrée</h3>
-                <div className="font-bold text-sm md:text-base px-2">
-                  <p className="uppercase mb-2">SALADE DE PALMISTE :</p>
-                  <p className="leading-snug">
-                    Coeur de palmier croquant, légumes frais nappés d'une
-                    vinaigrette délicate aux notes citronnées.
-                  </p>
-                </div>
-              </motion.div>
-            </SectionReveal>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {menuItems.map((item, i) => (
+              <SectionReveal key={item.label} delay={0.15 * (i + 1)}>
+                <motion.article
+                  whileHover={{ y: -8 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="group overflow-hidden rounded-3xl border border-white/[0.06] bg-white/[0.02] transition-colors duration-500 hover:border-[#0ea5a0]/20 hover:bg-white/[0.04]"
+                >
+                  {/* Circular image */}
+                  <div className="flex justify-center pt-8">
+                    <div className="h-44 w-44 overflow-hidden rounded-full border-2 border-white/[0.08] shadow-lg shadow-black/30">
+                      <motion.img
+                        whileHover={{ scale: 1.08 }}
+                        transition={{ duration: 0.5 }}
+                        src={item.image}
+                        alt={item.dish}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </div>
 
-            {/* Plat */}
-            <SectionReveal delay={0.4}>
-              <motion.div
-                whileHover={{ y: -10 }}
-                className="bg-white/95 rounded-b-[40px] rounded-t-full pb-8 pt-0 px-6 shadow-xl text-center mt-12 md:mt-0"
-              >
-                <div className="w-48 h-48 mx-auto -mt-12 mb-6 rounded-full border-4 border-white shadow-lg bg-gray-200 overflow-hidden relative z-10">
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                    src="/chutney_de_requin.webp"
-                    alt="Chutney de requin"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="text-xl font-black uppercase mb-4">Plat</h3>
-                <div className="font-bold text-sm md:text-base px-2">
-                  <p className="uppercase mb-2">CHUTNEY DE REQUIN :</p>
-                  <p className="leading-snug">
-                    A base de requin tendre, mijoté avec oignons, ail,
-                    gingembre, tomates, épices locales et une touche de piment.
-                  </p>
-                </div>
-              </motion.div>
-            </SectionReveal>
+                  {/* Content */}
+                  <div className="p-6 text-center md:p-8">
+                    <div className="mb-3 flex items-center justify-center gap-2">
+                      <div className="h-px w-6 bg-[#0ea5a0]" />
+                      <span className="text-xs font-semibold tracking-[0.15em] text-[#0ea5a0] uppercase">
+                        {item.label}
+                      </span>
+                      <div className="h-px w-6 bg-[#0ea5a0]" />
+                    </div>
 
-            {/* Dessert */}
-            <SectionReveal delay={0.6}>
-              <motion.div
-                whileHover={{ y: -10 }}
-                className="bg-white/95 rounded-b-[40px] rounded-t-full pb-8 pt-0 px-6 shadow-xl text-center mt-12 md:mt-0"
-              >
-                <div className="w-48 h-48 mx-auto -mt-12 mb-6 rounded-full border-4 border-white shadow-lg bg-gray-200 overflow-hidden relative z-10">
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                    src="/le_ladob.jpg"
-                    alt="Le Ladob"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="text-xl font-black uppercase mb-4">Dessert</h3>
-                <div className="font-bold text-sm md:text-base px-2">
-                  <p className="uppercase mb-2">LE LADOB :</p>
-                  <p className="leading-snug">
-                    Banane et patates douces cuits dans du lait de coco parfumé
-                    à la vanille, subtilement sucré et réconfortant.
-                  </p>
-                </div>
-              </motion.div>
-            </SectionReveal>
+                    <h3 className="font-display mb-3 text-2xl font-bold text-white">
+                      {item.dish}
+                    </h3>
+
+                    <p className="text-sm leading-[1.7] text-white/50">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.article>
+              </SectionReveal>
+            ))}
           </div>
         </div>
-
-        {/* Bottom swoosh */}
-        <div className="absolute bottom-0 left-0 w-full h-24 bg-white transform skew-y-2 translate-y-12"></div>
       </section>
 
-      {/* --- SECTION 4: DRINKS --- */}
-      <section className="relative py-24 min-h-[600px] flex items-center bg-white overflow-hidden">
-        {/* Circle background */}
+      {/* ===== SIGNATURE DRINK ===== */}
+      <section className="relative overflow-hidden px-6 pb-24 pt-12 md:px-8 md:pb-32 md:pt-16">
+        {/* Circle decoration */}
         <motion.div
           animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] bg-[#FCE7F3] rounded-full z-0 translate-x-1/4"
-        ></motion.div>
-        {/* Red diagonal */}
-        <div className="absolute top-0 right-0 w-full h-[150%] bg-[#D12421] -z-10 origin-top-right rotate-[-15deg] translate-x-1/2"></div>
+          className="absolute -right-20 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full border border-[#0ea5a0]/10"
+        />
 
-        {/* Green bottom */}
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-[#007A3D] z-10"></div>
-
-        <div className="container mx-auto px-4 z-10 flex flex-col md:flex-row items-center">
-          {/* Drink Image */}
-          <SectionReveal className="w-full md:w-1/2 mb-10 md:mb-0 relative">
-            <div className="w-64 md:w-80 h-[500px] mx-auto bg-gray-200 rounded-2xl shadow-2xl overflow-hidden border-8 border-white bg-[url('/seychelles_plage_2.webp')] bg-cover bg-center relative z-10"></div>
-            {/* Decor */}
-            <motion.div
-              animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.2, 1] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="absolute -top-10 left-10 w-20 h-20 bg-red-500 rounded-full blur-xl opacity-50 z-0"
-            ></motion.div>
-          </SectionReveal>
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-12 md:flex-row md:gap-16">
+          {/* Image */}
+          <div className="w-full md:w-1/2">
+            <SectionReveal>
+              <div className="relative">
+                <div className="absolute inset-0 translate-y-4 scale-95 rounded-3xl bg-[#0ea5a0]/10 blur-[40px]" />
+                <div className="relative overflow-hidden rounded-3xl border border-white/[0.06]">
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    transition={{ duration: 0.6 }}
+                    className="h-[400px] w-full bg-cover bg-center md:h-[500px]"
+                    style={{
+                      backgroundImage: "url('/seychelles_plage_2.webp')",
+                    }}
+                  />
+                </div>
+              </div>
+            </SectionReveal>
+          </div>
 
           {/* Text */}
-          <div className="w-full md:w-1/2 text-center md:text-left pl-8">
+          <div className="w-full md:w-1/2">
             <SectionReveal delay={0.2}>
-              <h2
-                className="text-5xl md:text-6xl font-black mb-8 text-black"
-                style={{ fontFamily: "cursive, sans-serif" }}
-              >
-                JUS DES SEYCHELLES
-              </h2>
-              <p className="text-xl font-black uppercase leading-relaxed text-black/80 max-w-md">
-                Fruits tropicaux frais pressés à la main, un véritable goût
-                d'île dans chaque gorgée.
-              </p>
+              <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm md:p-10">
+                <div className="mb-4 flex items-center gap-2">
+                  <div className="h-px w-8 bg-[#0ea5a0]" />
+                  <span className="text-xs font-semibold tracking-[0.2em] text-[#5eead4] uppercase">
+                    Boisson signature
+                  </span>
+                </div>
+
+                <h2 className="font-display mb-6 text-4xl font-bold text-white sm:text-5xl">
+                  Jus des
+                  <br />
+                  Seychelles
+                </h2>
+
+                <div className="mb-6 h-[2px] w-16 bg-[#0ea5a0]" />
+
+                <p className="text-base leading-[1.8] text-white/60 md:text-lg">
+                  Fruits tropicaux frais presses a la main, un veritable gout
+                  d&apos;ile dans chaque gorgee. Un concentre de soleil et de
+                  fraicheur qui capture l&apos;essence meme de l&apos;archipel.
+                </p>
+              </div>
             </SectionReveal>
           </div>
         </div>

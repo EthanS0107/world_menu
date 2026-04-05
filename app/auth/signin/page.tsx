@@ -17,6 +17,12 @@ export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
+  const switchMode = (registerMode: boolean) => {
+    setIsRegister(registerMode);
+    setError("");
+    setSuccess("");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -73,7 +79,7 @@ export default function SignInPage() {
         router.push("/profile");
         router.refresh();
       }
-    } catch (_err) {
+    } catch {
       setError("Une erreur est survenue. Réessayez plus tard.");
     } finally {
       setLoading(false);
@@ -81,98 +87,84 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50 flex flex-col items-center justify-center px-4 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full opacity-50 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-full opacity-50 blur-3xl" />
-        <div className="absolute top-20 left-1/4 w-64 h-64 bg-gradient-to-br from-purple-50 to-pink-50 rounded-full opacity-30 blur-3xl" />
+    <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-[#0a0a0f] px-4 py-10 sm:px-6">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-32 right-[-4rem] h-80 w-80 rounded-full bg-[radial-gradient(circle,_rgba(200,164,94,0.35),_rgba(200,164,94,0)_68%)] blur-2xl" />
+        <div className="absolute -bottom-36 left-[-6rem] h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,_rgba(94,120,200,0.24),_rgba(94,120,200,0)_72%)] blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.04),transparent_28%,transparent_72%,rgba(255,255,255,0.04))]" />
       </div>
 
-      <div className="w-full max-w-md relative z-10">
-        {/* Logo & back link */}
-        <div className="text-center mb-8">
+      <div className="noise relative z-10 mx-auto w-full max-w-md animate-fade-up">
+        <div className="mb-8 text-center">
           <Link href="/" className="inline-block group">
-            <h1 className="text-5xl font-black mb-3">
-              <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                World
-              </span>{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent">
-                Menu
-              </span>
+            <h1 className="font-display text-5xl font-bold leading-none tracking-tight sm:text-6xl">
+              <span className="gradient-text-white">World</span>{" "}
+              <span className="gradient-text">Menu</span>
             </h1>
           </Link>
-          <p className="text-gray-400 text-sm">
+          <p className="mt-3 text-sm text-slate-300">
             {isRegister
-              ? "Créez votre compte pour commencer l'aventure"
-              : "Connectez-vous pour accéder au site"}
+              ? "Rejoignez le club premium des saveurs du monde."
+              : "Ravi de vous revoir, reconnectez-vous à votre espace."}
           </p>
         </div>
 
-        {/* Card */}
-        <div className="bg-white/70 backdrop-blur-xl p-8 rounded-3xl shadow-xl shadow-gray-200/50 border border-white/80">
-          {/* Toggle Connexion / Inscription */}
-          <div className="flex mb-8 bg-gray-100/80 rounded-2xl p-1.5">
-            <button
-              type="button"
-              onClick={() => {
-                setIsRegister(false);
-                setError("");
-                setSuccess("");
-              }}
-              className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 ${
-                !isRegister
-                  ? "bg-white text-indigo-600 shadow-md shadow-indigo-500/10"
-                  : "text-gray-400 hover:text-gray-600"
-              }`}
-            >
-              <span className="flex items-center justify-center gap-2">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                  />
-                </svg>
-                Connexion
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setIsRegister(true);
-                setError("");
-                setSuccess("");
-              }}
-              className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 ${
-                isRegister
-                  ? "bg-white text-indigo-600 shadow-md shadow-indigo-500/10"
-                  : "text-gray-400 hover:text-gray-600"
-              }`}
-            >
-              <span className="flex items-center justify-center gap-2">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-                  />
-                </svg>
-                Inscription
-              </span>
-            </button>
+        <div className="glass premium-shadow rounded-3xl border border-white/10 p-6 sm:p-8">
+          <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-1.5">
+            <div className="grid grid-cols-2 gap-1.5">
+              <button
+                type="button"
+                onClick={() => switchMode(false)}
+                className={`rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                  !isRegister
+                    ? "bg-[#c8a45e] text-[#141414] shadow-[0_8px_24px_rgba(200,164,94,0.35)]"
+                    : "text-slate-300 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                    />
+                  </svg>
+                  Connexion
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => switchMode(true)}
+                className={`rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                  isRegister
+                    ? "bg-[#c8a45e] text-[#141414] shadow-[0_8px_24px_rgba(200,164,94,0.35)]"
+                    : "text-slate-300 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                    />
+                  </svg>
+                  Inscription
+                </span>
+              </button>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -181,14 +173,14 @@ export default function SignInPage() {
                 <div>
                   <label
                     htmlFor="firstName"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5"
+                    className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
                   >
                     Prénom
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
                       <svg
-                        className="w-4 h-4"
+                        className="h-4 w-4"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -209,21 +201,21 @@ export default function SignInPage() {
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                       placeholder="Jean"
-                      className="w-full rounded-xl border border-gray-200 pl-10 pr-4 py-3 text-sm text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all bg-gray-50/50 focus:bg-white"
+                      className="w-full rounded-xl border border-white/15 bg-white/5 py-3 pr-4 pl-10 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-[#c8a45e] focus:bg-white/10 focus:ring-2 focus:ring-[#c8a45e]/20"
                     />
                   </div>
                 </div>
                 <div>
                   <label
                     htmlFor="lastName"
-                    className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5"
+                    className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
                   >
                     Nom
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
                       <svg
-                        className="w-4 h-4"
+                        className="h-4 w-4"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -244,7 +236,7 @@ export default function SignInPage() {
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                       placeholder="Dupont"
-                      className="w-full rounded-xl border border-gray-200 pl-10 pr-4 py-3 text-sm text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all bg-gray-50/50 focus:bg-white"
+                      className="w-full rounded-xl border border-white/15 bg-white/5 py-3 pr-4 pl-10 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-[#c8a45e] focus:bg-white/10 focus:ring-2 focus:ring-[#c8a45e]/20"
                     />
                   </div>
                 </div>
@@ -254,14 +246,14 @@ export default function SignInPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5"
+                className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
               >
                 Adresse email
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
                   <svg
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -282,7 +274,7 @@ export default function SignInPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="votre@email.com"
-                  className="w-full rounded-xl border border-gray-200 pl-10 pr-4 py-3 text-sm text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all bg-gray-50/50 focus:bg-white"
+                  className="w-full rounded-xl border border-white/15 bg-white/5 py-3 pr-4 pl-10 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-[#c8a45e] focus:bg-white/10 focus:ring-2 focus:ring-[#c8a45e]/20"
                 />
               </div>
             </div>
@@ -290,14 +282,14 @@ export default function SignInPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5"
+                className="mb-1.5 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
               >
                 Mot de passe
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
                   <svg
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -318,16 +310,16 @@ export default function SignInPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-gray-200 pl-10 pr-12 py-3 text-sm text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 outline-none transition-all bg-gray-50/50 focus:bg-white"
+                  className="w-full rounded-xl border border-white/15 bg-white/5 py-3 pr-12 pl-10 text-sm text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-[#c8a45e] focus:bg-white/10 focus:ring-2 focus:ring-[#c8a45e]/20"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-white"
                 >
                   {showPassword ? (
                     <svg
-                      className="w-4 h-4"
+                      className="h-4 w-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -341,7 +333,7 @@ export default function SignInPage() {
                     </svg>
                   ) : (
                     <svg
-                      className="w-4 h-4"
+                      className="h-4 w-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -368,7 +360,7 @@ export default function SignInPage() {
               <div className="flex justify-end -mt-2">
                 <Link
                   href="/auth/forgot-password"
-                  className="text-xs text-indigo-500 hover:text-indigo-600 font-medium transition-colors"
+                  className="text-xs font-medium text-[#d9bc85] transition-colors hover:text-[#f0d9a8]"
                 >
                   Mot de passe oublié ?
                 </Link>
@@ -376,9 +368,9 @@ export default function SignInPage() {
             )}
 
             {error && (
-              <div className="flex items-center gap-3 bg-red-50 border border-red-200/80 text-red-600 text-sm px-4 py-3 rounded-xl">
+              <div className="flex items-center gap-3 rounded-xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-200">
                 <svg
-                  className="w-5 h-5 shrink-0"
+                  className="h-5 w-5 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -395,9 +387,9 @@ export default function SignInPage() {
             )}
 
             {success && (
-              <div className="flex items-start gap-3 bg-teal-50 border border-teal-200/80 text-teal-700 text-sm px-4 py-3 rounded-xl">
+              <div className="flex items-start gap-3 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
                 <svg
-                  className="w-5 h-5 shrink-0 mt-0.5"
+                  className="mt-0.5 h-5 w-5 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -416,12 +408,12 @@ export default function SignInPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:from-indigo-500 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 mt-1 flex items-center justify-center gap-2"
+              className="mt-1 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#a88a3e] via-[#c8a45e] to-[#dbb978] px-4 py-3.5 text-sm font-bold text-[#171717] transition-all duration-300 hover:translate-y-[-1px] hover:shadow-[0_12px_30px_rgba(200,164,94,0.35)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <>
                   <svg
-                    className="w-4 h-4 animate-spin"
+                    className="h-4 w-4 animate-spin"
                     fill="none"
                     viewBox="0 0 24 24"
                   >
@@ -444,7 +436,7 @@ export default function SignInPage() {
               ) : isRegister ? (
                 <>
                   <svg
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -461,7 +453,7 @@ export default function SignInPage() {
               ) : (
                 <>
                   <svg
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -479,25 +471,24 @@ export default function SignInPage() {
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-xs text-gray-300 font-medium">ou</span>
-            <div className="flex-1 h-px bg-gray-200" />
+          <div className="my-6 flex items-center gap-3">
+            <div className="h-px flex-1 bg-white/10" />
+            <span className="text-xs font-medium uppercase tracking-[0.22em] text-slate-500">
+              ou
+            </span>
+            <div className="h-px flex-1 bg-white/10" />
           </div>
 
-          {/* Switch mode hint */}
-          <p className="text-sm text-gray-400 text-center">
+          <p className="text-center text-sm text-slate-300">
             {isRegister ? (
               <>
                 Déjà un compte ?{" "}
                 <button
                   type="button"
                   onClick={() => {
-                    setIsRegister(false);
-                    setError("");
+                    switchMode(false);
                   }}
-                  className="text-indigo-600 font-semibold hover:text-indigo-500 transition-colors"
+                  className="font-semibold text-[#d9bc85] transition-colors hover:text-[#f0d9a8]"
                 >
                   Se connecter
                 </button>
@@ -508,10 +499,9 @@ export default function SignInPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setIsRegister(true);
-                    setError("");
+                    switchMode(true);
                   }}
-                  className="text-indigo-600 font-semibold hover:text-indigo-500 transition-colors"
+                  className="font-semibold text-[#d9bc85] transition-colors hover:text-[#f0d9a8]"
                 >
                   Créer un compte
                 </button>
@@ -520,14 +510,13 @@ export default function SignInPage() {
           </p>
         </div>
 
-        {/* Back to home */}
-        <div className="text-center mt-6">
+        <div className="mt-6 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-slate-400 transition-colors hover:text-white"
           >
             <svg
-              className="w-4 h-4"
+              className="h-4 w-4"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
